@@ -3,7 +3,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import clsx from 'clsx';
 import React, { useState } from 'react';
 
-import { Avatar, Button, ButtonAdd, ButtonDelete, ButtonGroup, ButtonMulti, ButtonSave, DialogModal, NotificationsButton, Tabs } from '../';
+import { Avatar, BooleanIcon, Button, ButtonAdd, ButtonDelete, ButtonGroup, ButtonMulti, ButtonSave, DialogModal, NotificationsButton, Tabs } from '../';
 import { Select } from '../';
 import { useAppStyles } from './app.styles';
 
@@ -352,6 +352,36 @@ export function App() {
             },
           ]}
         />
+      </div>
+      <hr />
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+          margin: '2rem',
+        }}
+      >
+        <BooleanIcon condition={true} />
+        <BooleanIcon condition={false} />
+        <BooleanIcon showOnlyCheck condition={false} />
+        <div>
+          <span>With tooltip positive:</span>
+          <br />
+          <BooleanIcon
+            trueText={'Text to display when positive'}
+            condition={true}
+          />
+        </div>
+
+        <div>
+          <span>With tooltip negative:</span>
+          <br />
+          <BooleanIcon
+          falseText={'Text to display when negative'}
+          condition={false}
+        />
+        </div>
+        
       </div>
     </>
   );

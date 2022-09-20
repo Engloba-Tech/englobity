@@ -16,3 +16,4 @@ export * from './Tabs';
 export * from './TextArea';
 export * from './Avatar';
 export * from './useHandleOpen';
+export * from './BooleanIcon';
