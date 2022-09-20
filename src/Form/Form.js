@@ -38,6 +38,10 @@ export function Form({ children, errors, elementRef, ...props }) {
 			validations.phoneNumber.name,
 			validations.phoneNumber.cb
 		);
+		ValidatorForm.addValidationRule(
+			validations.noDecimal.name,
+			validations.noDecimal.cb
+		);
 	}, []);
 
 	return (

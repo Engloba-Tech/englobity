@@ -6,6 +6,7 @@ const NIF_REGEX = /^(\d{8})([A-Z])$/i;
 const CIF_REGEX = /^([ABCDEFGHJKLMNPQRSUVW])(\d{7})([0-9A-J])$/i;
 const NIE_REGEX = /^[XYZ]\d{7,8}[A-Z]$/i;
 const PHONE_NUMBER = /^(\+[0-9]{1,3})?(?:[0-9] ?){6,14}[0-9]$/;
+const NO_DECIMAL = /^[0-9]$/i;
 
 function validateNIF(documentId) {
   let isValid = false;
@@ -170,6 +171,9 @@ export const validations = {
   phoneNumber: {
     name: 'phoneNumberFormat',
     cb: (value) => validatePhone(value),
+  },
+  noDecimal: {
+    name: 'noDecimal',
+    cb: (value) => value ? value.match(NO_DECIMAL) : true
   }
-  // more validations here
 };
