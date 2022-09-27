@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-import { color } from '../App/styles/color.styles';
+import { color } from '../../App/styles/color.styles';
 
 export const useBooleanIconStyles = makeStyles((theme) => ({
   positive: {

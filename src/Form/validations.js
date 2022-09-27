@@ -174,6 +174,6 @@ export const validations = {
   },
   noDecimal: {
     name: 'noDecimal',
-    cb: (value) => value ? value.match(NO_DECIMAL) : true
+    cb: (value) => value ? value.toString().match(NO_DECIMAL) : true
   }
 };

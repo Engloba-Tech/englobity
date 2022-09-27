@@ -29,6 +29,24 @@ export const color = {
     navyBlue: '#232977',
     blue: '#4d5df1'
   },
+  icons: {
+    error: {
+      main: '#ff4c4c',
+      light: '#ffe4e4'
+    },
+    warning: {
+      main: '#fd9d1f',
+      light: '#fff0de'
+    },
+    info: {
+      main: '#4d5df1',
+      light: '#e4e7fd'
+    },
+    success: {
+      main: '#34bf49',
+      light: '#e1f5e4'
+    }
+  },
   buttons: {
     add: {
       main: '#34bf49',

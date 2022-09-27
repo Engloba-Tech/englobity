@@ -28,6 +28,12 @@ export function ButtonMulti({
   const anchorRef = useRef(null);
 
   function renderButton() {
+
+    const onClickAction = action => {
+      setPopperOpened(false);
+      action.action();
+    };
+
     return (
       <>
           <ButtonGroup ref={anchorRef}>
@@ -69,7 +75,7 @@ export function ButtonMulti({
                       }}
                     >
                       {actions.map((action, index) => (
-                        <MenuItem key={action.text} onClick={action.action}>
+                        <MenuItem key={action.text} onClick={() => onClickAction(action)}>
                           {action.text}
                         </MenuItem>
                       ))}

@@ -3,7 +3,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import clsx from 'clsx';
 import React, { useState } from 'react';
 
-import { Avatar, BooleanIcon, Button, ButtonAdd, ButtonDelete, ButtonGroup, ButtonMulti, ButtonSave, DialogModal, NotificationsButton, Tabs } from '../';
+import { AlertIcon, Avatar, BooleanIcon, InfoIcon, WarningIcon, Button, ButtonAdd, ButtonDelete, ButtonGroup, ButtonMulti, ButtonSave, DialogModal, errorToaster, infoToaster, warningToaster, NotificationsButton, successToaster, Tabs } from '../';
 import { Select } from '../';
 import { useAppStyles } from './app.styles';
 
@@ -364,6 +364,9 @@ export function App() {
         <BooleanIcon condition={true} />
         <BooleanIcon condition={false} />
         <BooleanIcon showOnlyCheck condition={false} />
+        <AlertIcon />
+        <WarningIcon />
+        <InfoIcon />
         <div>
           <span>With tooltip positive:</span>
           <br />
@@ -382,6 +385,18 @@ export function App() {
         />
         </div>
         
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+          margin: '2rem',
+        }}
+      >
+        <Button onClick={(() => errorToaster('Error!', 'This is an error toast') )}>Error!</Button>
+        <Button onClick={(() => successToaster('Success!', 'This is success toast') )}>Success!</Button>
+        <Button onClick={(() => infoToaster('Success!') )}>Info!</Button>
+        <Button onClick={(() => warningToaster('Success!') )}>Warning!</Button>
       </div>
     </>
   );
