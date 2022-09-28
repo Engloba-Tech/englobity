@@ -1,10 +1,12 @@
 import { Snackbar } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import shortid from 'shortid';
 import clsx from 'clsx';
 import CloseIcon from '@material-ui/icons/Close';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 import { AlertIcon, BooleanIcon, InfoIcon, WarningIcon } from '../Icons';
 import { useExecToasterStyles } from './execToaster.styles';
@@ -30,6 +32,11 @@ export function SnackAlert({
   duration = 200000,
 }) {
   const classes = useExecToasterStyles(type);
+  const [showDetail, setShowDetail] = useState(false);
+  const toggleDetail = () => {
+    setShowDetail((prevDetail) => !prevDetail);
+  };
+  const isMultiLine = text && typeof text !== 'string';
 
   return (
     <Snackbar
@@ -52,15 +59,43 @@ export function SnackAlert({
         {type === TOASTER_TYPES.WARNING && <WarningIcon />}
         <div>
           <span>{name}</span>
-          {text && (
-            <>
-              <br />
-              <span style={{ fontWeight: 'normal', display: 'block' }}>
-                {text}
-              </span>
-            </>
-          )}
+          {text &&
+            (isMultiLine ? (
+              <>
+                {showDetail &&
+                  text.map((line, index) => {
+                    return (
+                      <span
+                        key={index}
+                        style={{
+                          fontWeight: 'normal',
+                          display: 'block',
+                          marginLeft: '1rem',
+                        }}
+                      >
+                        {`- ${line}`}
+                      </span>
+                    );
+                  })}
+              </>
+            ) : (
+              <>
+                <br />
+                <span style={{ fontWeight: 'normal', display: 'block' }}>
+                  {text}
+                </span>
+              </>
+            ))}
         </div>
+        {isMultiLine && (
+          <span onClick={toggleDetail}>
+            {showDetail ? (
+              <ExpandLessIcon className={classes.showMoreIcon} />
+            ) : (
+              <ExpandMoreIcon className={classes.showMoreIcon} />
+            )}
+          </span>
+        )}
         <CloseIcon className={classes.closeIcon} onClick={unmount} />
       </div>
     </Snackbar>

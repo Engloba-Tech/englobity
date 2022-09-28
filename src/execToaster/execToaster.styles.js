@@ -19,5 +19,11 @@ export const useExecToasterStyles = makeStyles((theme) => ({
     marginRight: '0 !important',
     fontSize: '20px !important',
     cursor:'pointer'
+  },
+  showMoreIcon: {
+    marginLeft: theme.spacing(1),
+    marginRight: '0 !important',
+    fontSize: '20px !important',
+    cursor:'pointer'
   }
 }));

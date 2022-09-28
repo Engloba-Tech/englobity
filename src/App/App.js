@@ -394,6 +394,7 @@ export function App() {
         }}
       >
         <Button onClick={(() => errorToaster('Error!', 'This is an error toast') )}>Error!</Button>
+        <Button onClick={(() => errorToaster('Multiline Error!', ['This is a', 'multi line', 'error toast.']) )}>Multiline Error!</Button>
         <Button onClick={(() => successToaster('Success!', 'This is success toast') )}>Success!</Button>
         <Button onClick={(() => infoToaster('Success!') )}>Info!</Button>
         <Button onClick={(() => warningToaster('Success!') )}>Warning!</Button>
