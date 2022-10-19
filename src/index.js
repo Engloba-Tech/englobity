@@ -18,3 +18,5 @@ export * from './Avatar';
 export * from './useHandleOpen';
 export * from './Icons';
 export * from './execToaster';
+export * from './ViewTable';
+export * from './LocaleDatePicker';

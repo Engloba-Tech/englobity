@@ -5,10 +5,17 @@ export const globals = {
     fontSize: '16px' // 1rem = 16px,
   },
   body: {
+    fontFamily: 'Montserrat',
+    '& *': {
+      fontFamily: 'Montserrat'
+    },
     backgroundColor: color.secondary.main,
     '& hr':{
       opacity: 0.2
     }
+  },
+  '.MuiInputBase-input': {
+    fontFamily: 'Montserrat'
   },
   '.MuiInputLabel-outlined': {
     backgroundColor: 'white',
@@ -25,7 +32,6 @@ export const globals = {
     zIndex: '9999',
     bar: {
       zIndex: '9999',
-
       backgroundColor: color.primary.main
     },
     peg: {
@@ -33,5 +39,8 @@ export const globals = {
 
       boxShadow: 'none'
     }
-  }
+  },
+  '.MuiTypography-root': {
+    fontFamily: 'Montserrat'
+  },
 };

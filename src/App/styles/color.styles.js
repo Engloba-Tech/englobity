@@ -10,8 +10,9 @@ export const color = {
   },
   primary: {
     dark: '#232977',
-    light: '#898aff',
-    main: '#4d5df1'
+    light: '#d3d8fc',
+    main: '#4d5df1',
+    lightest: '#f6f7ff'
   },
   secondary: {
     dark: '#c2c5ca',
@@ -21,6 +22,10 @@ export const color = {
   action: {
     error: '#f44336',
     activeButton: 'rgba(77, 93, 241, 0.7)'
+  },
+  table: {
+    header: 'rgb(243, 242, 247)',
+    summary: 'rgb(243, 242, 247)'
   },
   status: {
     green: '#2ACC92',
@@ -40,7 +45,7 @@ export const color = {
     },
     info: {
       main: '#4d5df1',
-      light: '#e4e7fd'
+      light: '#d3d8fc'
     },
     success: {
       main: '#34bf49',

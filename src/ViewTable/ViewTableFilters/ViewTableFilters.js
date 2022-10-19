@@ -1,0 +1,226 @@
+import { IconButton, TableCell, TextField, Tooltip } from '@material-ui/core';
+import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
+import ChipInput from 'material-ui-chip-input';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import shortid from 'shortid';
+import { LocaleDatePicker } from '../../LocaleDatePicker';
+
+import { Select } from '../../Select';
+// import { FILTER_SUFFIX, FILTER_TYPE } from '../../LocaleDatePicker';
+import { FILTER_TYPE, FILTER_SUFFIX } from './viewTableFilters.const';
+import { useViewTableFiltersStyles } from './viewTableFilters.styles';
+
+function FilterSwitch({
+  cell,
+  onChange,
+  dateFromText,
+  dateUntilText,
+  todayDatePickerLabel,
+  clearDatePickerLabel,
+  cancelDatePickerLabel,
+  okDatePickerLabel,
+}) {
+  const [inputs, setInputs] = useState({});
+  const classes = useViewTableFiltersStyles();
+
+  switch (cell.filterType) {
+    case FILTER_TYPE.NONE:
+      return null;
+    case FILTER_TYPE.DATE:
+      return (
+        <div className={classes.dateWrapper}>
+          <LocaleDatePicker
+            todayDatePickerLabel={todayDatePickerLabel}
+            clearDatePickerLabel={clearDatePickerLabel}
+            cancelDatePickerLabel={cancelDatePickerLabel}
+            okDatePickerLabel={okDatePickerLabel}
+            clearable
+            name={cell.id}
+            className={`${classes.date} ${classes.dateLeft}`}
+            value={inputs[cell.id + FILTER_SUFFIX.START]}
+            onChange={(e) => {
+              const pickerName = cell.id + FILTER_SUFFIX.START;
+              const value = e.target.value
+                ? e.target.value.utc().format('YYYY-MM-DDTHH:mm:ss')
+                : null;
+              setInputs((prev) => ({ ...prev, [pickerName]: value }));
+              onChange(pickerName, value);
+            }}
+            inputVariant="standard"
+            TextFieldComponent={(params) => (
+              <TextField placeholder={dateFromText} {...params} />
+            )}
+          />
+          <div className={classes.dateSlash}></div>
+          <LocaleDatePicker
+            todayDatePickerLabel={todayDatePickerLabel}
+            clearDatePickerLabel={clearDatePickerLabel}
+            cancelDatePickerLabel={cancelDatePickerLabel}
+            okDatePickerLabel={okDatePickerLabel}
+            clearable
+            name={cell.id}
+            className={`${classes.date} ${classes.dateRight}`}
+            value={inputs[cell.id + FILTER_SUFFIX.END]}
+            onChange={(e) => {
+              const pickerName = cell.id + FILTER_SUFFIX.END;
+              const value = e.target.value
+                ? e.target.value.utc().format('YYYY-MM-DDTHH:mm:ss')
+                : null;
+              setInputs((prev) => ({ ...prev, [pickerName]: value }));
+              onChange(pickerName, value);
+            }}
+            inputVariant="standard"
+            TextFieldComponent={(params) => (
+              <TextField placeholder={dateUntilText} {...params} />
+            )}
+          />
+        </div>
+      );
+    case FILTER_TYPE.COMBO:
+      return (
+        <Select
+          elements={cell.filterValues}
+          title={''}
+          displayEmpty
+          variant={'standard'}
+          style={{ margin: 0 }}
+          value={
+            inputs[cell.filterBy || cell.id] || cell.filterValues[0]?.value
+          }
+          onChange={(e) => {
+            setInputs((prev) => ({
+              ...prev,
+              [cell.filterBy || cell.id]: e.target.value,
+            }));
+            onChange(cell.filterBy || cell.id, e.target.value);
+          }}
+        />
+      );
+    case FILTER_TYPE.CHIP:
+      return (
+        <ChipInput
+          defaultValue={inputs[cell.filterBy || cell.id] || []}
+          onChange={(value) => {
+            setInputs((prev) => ({
+              ...prev,
+              [cell.filterBy || cell.id]: value,
+            }));
+            onChange(cell.filterBy || cell.id, value);
+          }}
+          fullWidth
+        />
+      );
+
+    default:
+      return (
+        <TextField
+          fullWidth
+          defaultValue={inputs[cell.filterBy || cell.id]}
+          onChange={(e) => onChange(cell.id, e.target.value)}
+        />
+      );
+  }
+}
+
+FilterSwitch.propTypes = {
+  cell: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  selectFirstOptionComboFilterText: PropTypes.string,
+  dateFromText: PropTypes.string,
+  dateUntilText: PropTypes.string,
+  todayDatePickerLabel: PropTypes.string,
+  clearDatePickerLabel: PropTypes.string,
+  cancelDatePickerLabel: PropTypes.string,
+  okDatePickerLabel: PropTypes.string,
+};
+
+function _viewTableFilters({
+  cells,
+  onFilterCellChange,
+  onFilterClear,
+  clearFiltersText,
+  dateFromText,
+  dateUntilText,
+  todayDatePickerLabel,
+  clearDatePickerLabel,
+  cancelDatePickerLabel,
+  okDatePickerLabel,
+}) {
+  const classes = useViewTableFiltersStyles();
+
+  const [reset, setReset] = useState(false);
+  function resetFilter() {
+    onFilterClear && onFilterClear();
+    setReset(!reset);
+  }
+  return (
+    <>
+      {cells && cells.length && (
+        <>
+          {cells.map((cell) => {
+            return (
+              <TableCell key={shortid.generate()} component="th">
+                {cell.label && (
+                  <FilterSwitch
+                    cell={cell}
+                    onChange={onFilterCellChange}
+                    shouldClear={reset}
+                    dateFromText={dateFromText}
+                    dateUntilText={dateUntilText}
+                    todayDatePickerLabel={todayDatePickerLabel}
+                    clearDatePickerLabel={clearDatePickerLabel}
+                    cancelDatePickerLabel={cancelDatePickerLabel}
+                    okDatePickerLabel={okDatePickerLabel}
+                  />
+                )}
+              </TableCell>
+            );
+          })}
+          {cells.some((cell) => cell.action) ? (
+            onFilterClear && (
+              <Tooltip title={clearFiltersText}>
+                <IconButton
+                  className={classes.clearFilters}
+                  onClick={resetFilter}
+                >
+                  <DeleteSweepIcon />
+                </IconButton>
+              </Tooltip>
+            )
+          ) : (
+            <TableCell
+              className={classes.newTableCell}
+              key={shortid.generate()}
+              component="th"
+            >
+              <Tooltip title={clearFiltersText}>
+                <IconButton
+                  className={classes.clearFiltersNewCol}
+                  onClick={resetFilter}
+                >
+                  <DeleteSweepIcon />
+                </IconButton>
+              </Tooltip>
+            </TableCell>
+          )}
+        </>
+      )}
+    </>
+  );
+}
+
+export const ViewTableFilters = React.memo(_viewTableFilters);
+
+_viewTableFilters.propTypes = {
+  cells: PropTypes.array.isRequired,
+  onFilterCellChange: PropTypes.func.isRequired,
+  onFilterClear: PropTypes.func,
+  clearFiltersText: PropTypes.string,
+  dateFromText: PropTypes.string,
+  dateUntilText: PropTypes.string,
+  todayDatePickerLabel: PropTypes.string,
+  clearDatePickerLabel: PropTypes.string,
+  cancelDatePickerLabel: PropTypes.string,
+  okDatePickerLabel: PropTypes.string,
+};

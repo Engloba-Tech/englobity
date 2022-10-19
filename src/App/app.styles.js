@@ -13,5 +13,8 @@ export const useAppStyles = makeStyles(theme => ({
   },
   blue: {
     color: 'blue'
+  },
+  customInfoSummary: {
+    border: '1px solid blue'
   }
 }));

@@ -6,6 +6,7 @@ export const useExecToasterStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
+    justifyContent: 'space-between',
     alignItems: 'center',
     lineHeight: '21px',
     borderRadius: '8px',

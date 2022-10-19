@@ -1,81 +1,71 @@
-import React from 'react';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { Alert } from '@material-ui/lab';
-import { Collapse, IconButton, Typography } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
-import { useHandleOpen } from '../';
+import React, { useState } from 'react';
 
-export function Summary({
-	text,
-	detail,
-	seeMoreText = 'see more',
-	severity,
-	className,
-	...props
-}) {
-	const { isOpen, handleClose } = useHandleOpen(Boolean(text));
-	const {
-		isOpen: isSeeMoreOpen,
-		handleClose: handleSeeMoreCLose,
-		handleOpen: handleSeeMoreOpen,
-	} = useHandleOpen(false);
+import { SnackAlert } from '../execToaster';
+import { useSummaryStyles } from './summary.styles';
 
-	return (
-		<Collapse in={isOpen} {...props}>
-			<Alert
-				className={className}
-				severity={severity}
-				action={
-					<IconButton aria-label='close' size='small' onClick={handleClose}>
-						<CloseIcon fontSize='inherit' />
-					</IconButton>
-				}
-			>
-				<Typography variant='subtitle1'>{text}</Typography>
-				{detail && (
-					<>
-						<Typography
-							onClick={isSeeMoreOpen ? handleSeeMoreCLose : handleSeeMoreOpen}
-							style={{
-								fontWeight: 400,
-								marginTop: '0.5rem',
-								marginBottom: '0.5rem',
-								color: '#f44336c2',
-								cursor: 'pointer',
-							}}
-						>
-							{`[${seeMoreText}]`}
-						</Typography>
-						<Collapse in={isSeeMoreOpen}>
-							{Array.isArray(detail) ? (
-								detail.map((text, i) => {
-									return (
-										<Typography
-											key={i}
-											style={{ marginLeft: '2rem' }}
-											variant='subtitle2'
-										>
-											{text}
-										</Typography>
-									);
-								})
-							) : (
-								<Typography style={{ marginLeft: '2rem' }} variant='subtitle2'>
-									{detail}
-								</Typography>
-							)}
-						</Collapse>
-					</>
-				)}
-			</Alert>
-		</Collapse>
-	);
+export const SUMMARY_TYPES = {
+  ERROR: 'error',
+  WARNING: 'warning',
+  INFO: 'info',
+  SUCCESS: 'success',
+};
+
+export function Summary({ text, severity, className, ...props }) {
+  const classes = useSummaryStyles();
+  const [display, setDisplay] = useState(true);
+  return (
+    (display && text && (
+      <div className={clsx(classes.divSummary, className)}>
+        <SnackAlert
+          className={classes.summary}
+          name={text}
+          type={severity}
+          onClose={() => {
+            setDisplay(false);
+          }}
+        />
+      </div>
+    )) || <></>
+  );
+}
+
+export function SuccessSummary({ text, className }) {
+  return (
+    <Summary
+      text={text}
+      className={className}
+      severity={SUMMARY_TYPES.SUCCESS}
+    />
+  );
+}
+
+export function WarningSummary({ text, className }) {
+  return (
+    <Summary
+      text={text}
+      className={className}
+      severity={SUMMARY_TYPES.WARNING}
+    />
+  );
+}
+
+export function ErrorSummary({ text, className }) {
+  return (
+    <Summary text={text} className={className} severity={SUMMARY_TYPES.ERROR} />
+  );
+}
+export function InfoSummary({ text, className }) {
+  return (
+    <Summary text={text} className={className} severity={SUMMARY_TYPES.INFO} />
+  );
 }
 
 Summary.propTypes = {
-	text: PropTypes.string,
-	detail: PropTypes.string,
-	className: PropTypes.string,
-	seeMoreText: PropTypes.string,
-	severity: PropTypes.oneOf(['error', 'warning', 'info', 'success']).isRequired,
+  text: PropTypes.string,
+  detail: PropTypes.string,
+  className: PropTypes.string,
+  seeMoreText: PropTypes.string,
+  severity: PropTypes.oneOf(['error', 'warning', 'info', 'success']).isRequired,
 };

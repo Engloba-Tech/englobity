@@ -1,16 +1,16 @@
 import { Snackbar } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import shortid from 'shortid';
-import clsx from 'clsx';
-import CloseIcon from '@material-ui/icons/Close';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
+import { color } from '../App/styles/color.styles';
 import { AlertIcon, BooleanIcon, InfoIcon, WarningIcon } from '../Icons';
 import { useExecToasterStyles } from './execToaster.styles';
-import { color } from '../App/styles/color.styles';
 
 // import globalStyles from 'styles';
 
@@ -29,7 +29,9 @@ export function SnackAlert({
   type,
   unmount,
   position,
+  onClose,
   duration = 200000,
+  className,
 }) {
   const classes = useExecToasterStyles(type);
   const [showDetail, setShowDetail] = useState(false);
@@ -46,49 +48,51 @@ export function SnackAlert({
       onClose={unmount}
     >
       <div
-        className={clsx(classes.alert, type)}
+        className={clsx(classes.alert, type, className)}
         style={{
           color: color.icons[type].main,
           backgroundColor: color.icons[type].light,
           fontWeight: text && 'bold',
         }}
       >
-        {type === TOASTER_TYPES.ERROR && <AlertIcon />}
-        {type === TOASTER_TYPES.SUCCESS && <BooleanIcon condition={true} />}
-        {type === TOASTER_TYPES.INFO && <InfoIcon />}
-        {type === TOASTER_TYPES.WARNING && <WarningIcon />}
-        <div>
-          <span>{name}</span>
-          {text &&
-            (isMultiLine ? (
-              <>
-                {showDetail &&
-                  text.map((line, index) => {
-                    return (
-                      <span
-                        key={index}
-                        style={{
-                          fontWeight: 'normal',
-                          display: 'block',
-                          marginLeft: '1rem',
-                        }}
-                      >
-                        {`- ${line}`}
-                      </span>
-                    );
-                  })}
-              </>
-            ) : (
-              <>
-                <br />
-                <span style={{ fontWeight: 'normal', display: 'block' }}>
-                  {text}
-                </span>
-              </>
-            ))}
+        <div style={{display: 'flex', alignItems: 'center'}}>
+          {type === TOASTER_TYPES.ERROR && <AlertIcon />}
+          {type === TOASTER_TYPES.SUCCESS && <BooleanIcon condition={true} />}
+          {type === TOASTER_TYPES.INFO && <InfoIcon />}
+          {type === TOASTER_TYPES.WARNING && <WarningIcon />}
+          <div>
+            <span>{name}</span>
+            {text &&
+              (isMultiLine ? (
+                <>
+                  {showDetail &&
+                    text.map((line, index) => {
+                      return (
+                        <span
+                          key={index}
+                          style={{
+                            fontWeight: 'normal',
+                            display: 'block',
+                            marginLeft: '1rem',
+                          }}
+                        >
+                          {`- ${line}`}
+                        </span>
+                      );
+                    })}
+                </>
+              ) : (
+                <>
+                  <br />
+                  <span style={{ fontWeight: 'normal', display: 'block' }}>
+                    {text}
+                  </span>
+                </>
+              ))}
+          </div>
         </div>
         {isMultiLine && (
-          <span onClick={toggleDetail}>
+          <span onClick={toggleDetail} style={{display: 'flex'}}>
             {showDetail ? (
               <ExpandLessIcon className={classes.showMoreIcon} />
             ) : (
@@ -96,7 +100,7 @@ export function SnackAlert({
             )}
           </span>
         )}
-        <CloseIcon className={classes.closeIcon} onClick={unmount} />
+        <CloseIcon className={classes.closeIcon} onClick={unmount || onClose} />
       </div>
     </Snackbar>
   );
@@ -168,4 +172,5 @@ SnackAlert.propTypes = {
   position: PropTypes.object,
   unmount: PropTypes.func,
   duration: PropTypes.number,
+  className: PropTypes.object
 };

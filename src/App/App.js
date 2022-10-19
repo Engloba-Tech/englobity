@@ -1,19 +1,51 @@
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
-import { AlertIcon, Avatar, BooleanIcon, InfoIcon, WarningIcon, Button, ButtonAdd, ButtonDelete, ButtonGroup, ButtonMulti, ButtonSave, DialogModal, errorToaster, infoToaster, warningToaster, NotificationsButton, successToaster, Tabs } from '../';
+import { AlertIcon, Avatar, BooleanIcon, Button, ButtonAdd, ButtonDelete, ButtonGroup, ButtonMulti, ButtonSave, DialogModal, ErrorSummary, errorToaster, InfoIcon, InfoSummary, infoToaster, NotificationsButton, SuccessSummary, successToaster, Tabs, ViewTable, WarningIcon, WarningSummary, warningToaster } from '../';
 import { Select } from '../';
 import { useAppStyles } from './app.styles';
+import { useReceivedInvoiceLineBuildTable } from './useReceivedInvoiceLineBuildTable';
 
 export function App() {
   const classes = useAppStyles();
   const [openModal, setOpenModal] = useState(false);
 
+  const onSelect = () => {
+    alert('lol');
+  };
+  
+  const data = useRef([
+    {
+      id: '9eb5e5b5-abc9-4eb7-a5ec-579499ca8c42',
+      externalReference: '965F327C-3064-4B6C-B84B-84B244CF4AAD',
+      districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+      quantity: 1,
+      amount: 289,
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 | PACK 1:  Retirada de enseres, Limpieza, Desenganche de suministros, Fotos del antes y del después y  Descerraje y cambio de bombín.',
+      isTaxExempt: false
+    },
+    {
+      id: '80b96bde-57a7-44fd-a66f-604f5223bd54',
+      externalReference: '860EDC2E-8EEC-4F6C-8682-D52C088C6AAE',
+      districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+      quantity: 1,
+      amount: 391,
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0025 | Pintura vivienda hasta 80 m2',
+      isTaxExempt: false
+    }
+  ]);
+
+  const { rows, headCells, getReceivedInvoiceLines } = useReceivedInvoiceLineBuildTable(
+    data.current,
+    onSelect,
+    false
+  );
+
   return (
     <>
-      <div
+      {/* <div
         style={{
           display: 'flex',
           justifyContent: 'space-around',
@@ -380,11 +412,10 @@ export function App() {
           <span>With tooltip negative:</span>
           <br />
           <BooleanIcon
-          falseText={'Text to display when negative'}
-          condition={false}
-        />
+            falseText={'Text to display when negative'}
+            condition={false}
+          />
         </div>
-        
       </div>
       <div
         style={{
@@ -393,11 +424,69 @@ export function App() {
           margin: '2rem',
         }}
       >
-        <Button onClick={(() => errorToaster('Error!', 'This is an error toast') )}>Error!</Button>
-        <Button onClick={(() => errorToaster('Multiline Error!', ['This is a', 'multi line', 'error toast.']) )}>Multiline Error!</Button>
-        <Button onClick={(() => successToaster('Success!', 'This is success toast') )}>Success!</Button>
-        <Button onClick={(() => infoToaster('Success!') )}>Info!</Button>
-        <Button onClick={(() => warningToaster('Success!') )}>Warning!</Button>
+        <Button
+          onClick={() => errorToaster('Error!', 'This is an error toast')}
+        >
+          Error!
+        </Button>
+        <Button
+          onClick={() =>
+            errorToaster('Multiline Error!', [
+              'This is a',
+              'multi line',
+              'error toast.',
+            ])
+          }
+        >
+          Multiline Error!
+        </Button>
+        <Button
+          onClick={() => successToaster('Success!', 'This is success toast')}
+        >
+          Success!
+        </Button>
+        <Button onClick={() => infoToaster('Success!')}>Info!</Button>
+        <Button onClick={() => warningToaster('Success!')}>Warning!</Button>
+      </div>
+      <div
+        style={{
+          margin: '2rem',
+        }}
+      >
+        <br />
+        <SuccessSummary text={'This is a success summary'} />
+        <br />
+        <ErrorSummary text={'This is a error summary'} />
+        <br />
+        <WarningSummary text={'This is a warning summary'} />
+        <br />
+        <InfoSummary text={'This is a info summary'} />
+        <br />
+        <InfoSummary
+          className={classes.customInfoSummary}
+          text={'This is a info summary with custom class'}
+        />
+      </div> */}
+      <div
+        style={{
+          margin: '2rem',
+        }}
+      >
+        <ViewTable
+          rows={rows}
+          cells={headCells}
+          // allowRowToggling={false}
+          // disableOrderBy={chapterMode}
+          // isToggled={isToggled}
+          // onToggleElement={onToggleElement}
+          onFetchData={getReceivedInvoiceLines}
+          allowRowChecking={false}
+          // onCheckElement={onCheckElement}
+          // onCheckAllElements={onCheckAllElements}
+          // checkedElements={checkedElements}
+          emptyText={'no results!'}
+          nextIconButtonText={'nexttt'}
+        />
       </div>
     </>
   );
