@@ -480,7 +480,9 @@ export function App() {
           // isToggled={isToggled}
           // onToggleElement={onToggleElement}
           onFetchData={getReceivedInvoiceLines}
-          allowRowChecking={false}
+          checkRowWhen={element => element.canBeDeleted}
+          checkRowDisabledReason={'disabled'}
+          // allowRowChecking={false}
           // onCheckElement={onCheckElement}
           // onCheckAllElements={onCheckAllElements}
           // checkedElements={checkedElements}

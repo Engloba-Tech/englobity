@@ -81,6 +81,11 @@ export const useViewTableStyles = makeStyles(theme => ({
         color: 'inherit !important'
       },
     },
+    '& .Mui-disabled':{
+      '& .MuiSvgIcon-root': {
+        opacity: 0.3,
+      },
+    },
     '& .MuiSvgIcon-root': {
       color: theme.palette.primary.main,
       cursor: 'pointer'

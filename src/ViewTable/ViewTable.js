@@ -1,4 +1,15 @@
-import { Checkbox, Table, TableBody, TableCell, TableContainer, TablePagination, TableRow, Toolbar, Tooltip, Typography } from '@material-ui/core';
+import {
+  Checkbox,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TablePagination,
+  TableRow,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -45,6 +56,7 @@ export function _viewTable({
   emptyText,
   rowsPerPageText,
   checkedElementsCountText,
+  checkRowDisabledReason = '',
   displayedRowsText = 'of',
   clearFiltersText = 'Clear filters',
   backIconButtonText = 'Back',
@@ -96,7 +108,10 @@ export function _viewTable({
 
   const ableSelectRow = (element) => {
     if (checkRowWhen) {
-      return checkRowWhen(element);
+      return !element.isAccordionHeader && checkRowWhen(element);
+    }
+    if (element.isAccordionHeader) {
+      return false;
     }
     return allowRowChecking;
   };
@@ -109,9 +124,7 @@ export function _viewTable({
   const renderAction = (action, row) => {
     return (
       (action.component && (
-        <Tooltip title={action.title}>
-          {action.component}
-        </Tooltip>
+        <Tooltip title={action.title}>{action.component}</Tooltip>
       )) || <TableCell key={shortid.generate()} padding="checkbox"></TableCell>
     );
   };
@@ -214,16 +227,22 @@ export function _viewTable({
 
                     {allowRowChecking && !row.isAccordionHeader && (
                       <TableCell padding="checkbox">
-                        {ableSelectRow(row) ? (
-                          <Checkbox
-                            onClick={() => onCheckElement(row)}
-                            color="primary"
-                            checked={isItemChecked}
-                            inputProps={{ 'aria-labelledby': labelId }}
-                          />
-                        ) : (
-                          ''
-                        )}
+                        <Tooltip
+                          title={
+                            !ableSelectRow(row) ? checkRowDisabledReason : ''
+                          }
+                          placement={'top'}
+                        >
+                          <div>
+                            <Checkbox
+                              onClick={() => onCheckElement(row)}
+                              color="primary"
+                              disabled={!ableSelectRow(row)}
+                              checked={isItemChecked}
+                              inputProps={{ 'aria-labelledby': labelId }}
+                            />
+                          </div>
+                        </Tooltip>
                       </TableCell>
                     )}
 
@@ -407,6 +426,7 @@ _viewTable.propTypes = {
   isChecked: PropTypes.func,
   isAnyChecked: PropTypes.bool,
   onCheckAllElements: PropTypes.func,
+  checkRowDisabledReason: PropTypes.string,
   allowRowToggling: PropTypes.bool,
   onToggleElement: PropTypes.func,
   isToggled: PropTypes.func,
