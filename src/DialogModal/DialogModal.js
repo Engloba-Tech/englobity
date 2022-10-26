@@ -1,24 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { useDialogModalStyles } from './dialogModal.styles';
 import { Button } from '../Buttons';
 import CloseIcon from '@material-ui/icons/Close';
 
-export function DialogModal({
-  title,
-  description,
-  isOpen,
-  buttons,
-  children,
-  ...rest
-}) {
+export function DialogModal({ title, description, isOpen, buttons, children, ...rest }) {
   const classes = useDialogModalStyles();
   return (
     <Dialog open={isOpen} aria-labelledby={title} {...rest}>
@@ -28,18 +15,14 @@ export function DialogModal({
           aria-label="close"
           onClick={rest.onClose}
           style={{
-			float: 'right',
-            color: (theme) => theme.palette.grey[500],
-			cursor: 'pointer'
+            float: 'right',
+            color: theme => theme.palette.grey[500],
+            cursor: 'pointer'
           }}
         />
       </DialogTitle>
       <DialogContent className={classes.dialogContent}>
-        {description && (
-          <DialogContentText id="dialog_description">
-            {description}
-          </DialogContentText>
-        )}
+        {description && <DialogContentText id="dialog_description">{description}</DialogContentText>}
         {children}
       </DialogContent>
       {buttons && (
@@ -50,7 +33,7 @@ export function DialogModal({
                 <Button
                   tooltip={{
                     title: button.text,
-                    placement: 'top',
+                    placement: 'top'
                   }}
                   id={button.id || `dialog_button_${i}`}
                   key={`dialog_button_${i}`}
@@ -71,7 +54,7 @@ export function DialogModal({
 
 DialogModal.propTypes = {
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   className: PropTypes.string,
@@ -81,8 +64,8 @@ DialogModal.propTypes = {
       onClick: PropTypes.func,
       text: PropTypes.string,
       children: PropTypes.element,
-      type: PropTypes.string,
+      type: PropTypes.string
     })
   ),
-  children: PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired
 };
