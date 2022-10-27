@@ -31,7 +31,7 @@ export function CustomSelect({
         <>
           <InputLabel shrink={displayEmpty} id={`select-outlined-${id}`}>
             {title}
-            {title && <span className={classes.requiredLabel}>*</span>}
+            {required && title && <span className={classes.requiredLabel}>*</span>}
           </InputLabel>
           <Select
             className={`${classes.customSelect} ${isRequiredError ? 'Mui-error' : ''}`}
