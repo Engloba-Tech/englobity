@@ -39,7 +39,7 @@ export function App() {
   const [openModal, setOpenModal] = useState(false);
   const [inputs, setInputs] = useState(null);
   const [submitted, setSubmitted] = useState(null);
-  const [selectValue, setSelectValue] = useState(0);
+  const [selectValue, setSelectValue] = useState(null);
   const formRef = useRef(null);
 
   const onAction = e => {
@@ -345,23 +345,67 @@ export function App() {
             margin: '2rem'
           }}
         >
+        <span>
+          Normal
           <Select
+            title={'Select'}
             value={selectValue}
             submitted={submitted}
             displayEmpty
-            required
+            onChange={e => {
+              setSubmitted(false);
+              setSelectValue(e.target?.value);
+            }}
+            elements={[
+              { value: 0, name: 'Empty' },
+              { value: 1, name: '1' },
+              { value: 2, name: '2' },
+              { value: 3, name: '3' }
+            ]}
+          />
+        </span>
+        <span>
+          Required (check null)
+          <Select
             title={'Select'}
+            value={selectValue}
+            displayEmpty
+            required
             errorMessage={'Error Message'}
             onChange={e => {
               setSubmitted(false);
               setSelectValue(e.target?.value);
             }}
             elements={[
+              { value: 0, name: 'Empty' },
               { value: 1, name: '1' },
               { value: 2, name: '2' },
               { value: 3, name: '3' }
             ]}
           />
+        </span>
+        <span>
+          Required (with error)
+        <Select
+            title={'Select'}
+            value={selectValue || 0}
+            submitted={submitted}
+            displayEmpty
+            required
+            error={selectValue < 1 && submitted}
+            errorMessage={'Error Message'}
+            onChange={e => {
+              setSubmitted(false);
+              setSelectValue(e.target?.value);
+            }}
+            elements={[
+              { value: 0, name: 'Empty' },
+              { value: 1, name: '1' },
+              { value: 2, name: '2' },
+              { value: 3, name: '3' }
+            ]}
+          />
+        </span>
           <Button onClick={onAction}>Submit</Button>
         </div>
         <hr />

@@ -17,13 +17,14 @@ export function CustomSelect({
   required,
   errorMessage,
   submitted,
+  error,
   ...props
 }) {
   const id = shortid.generate();
   const classes = useCustomSelectStyles();
-  const isRequiredError = required && submitted && !value;
+  const isRequiredError = (required && submitted && !value) || error;
   return (
-    <FormControl {...props} variant="outlined" className={`${classes.root} ${className}`}>
+    <FormControl error={error} {...props} variant="outlined" className={`${classes.root} ${className}`}>
       {isLoading ? (
         <Skeleton height={skeletonHeight} />
       ) : (
@@ -39,6 +40,7 @@ export function CustomSelect({
             value={value}
             required={required}
             displayEmpty={displayEmpty}
+            error={error}
             {...props}
             label={title}
           >
@@ -79,5 +81,6 @@ CustomSelect.propTypes = {
   displayEmpty: PropTypes.bool,
   required: PropTypes.bool,
   errorMessage: PropTypes.string,
+  error: PropTypes.bool,
   submitted: PropTypes.bool
 };
