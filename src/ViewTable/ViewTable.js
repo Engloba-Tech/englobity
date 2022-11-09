@@ -280,7 +280,7 @@ export function _viewTable({
                           } ${
                             Boolean(cell.action && !cell.formatAsColumn) &&
                             classes.actionCell
-                          }`}
+                          } ${cell.numeric && classes.numeric}`}
                         >
                           {cell.additionalProperty &&
                             cell.additionalProperty.beforeParent &&
