@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+
 import { color } from '../../App/styles/color.styles';
 
 const defauldButton = (font) => ({
@@ -34,7 +35,7 @@ export const useButtonStyles = makeStyles((theme) => ({
     whiteSpace: 'nowrap',
   },
   multiActionButtonPopper: {
-    zIndex: '5 !important',
+    zIndex: '2400 !important',
     marginLeft: '1px',
     // marginLeft: theme.spacing(2),
     '& .MuiList-padding': {
