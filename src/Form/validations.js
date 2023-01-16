@@ -15,13 +15,11 @@ function validateNIF(documentId) {
     return isValid;
   }
 
-  const hasCorrectLength =
-    documentId.length >= NIF_MIN_LENGTH && documentId.length <= NIF_MAX_LENGTH;
+  const hasCorrectLength = documentId.length >= NIF_MIN_LENGTH && documentId.length <= NIF_MAX_LENGTH;
 
   if (hasCorrectLength) {
     const NIFLetter = documentId[documentId.length - 1].toUpperCase();
-    const NIFNumber =
-      parseInt(documentId.substring(0, documentId.length - 1)) % 23;
+    const NIFNumber = parseInt(documentId.substring(0, documentId.length - 1)) % 23;
 
     isValid = NIFLetter === NIF_LETTERS[NIFNumber];
   }
@@ -85,7 +83,7 @@ function validateNIE(documentId) {
   const firstLetter = documentId[0].toUpperCase();
   const prefix = NIE_LETTERS.indexOf(firstLetter);
 
-  if (!prefix) {
+  if (prefix < 0) {
     return false;
   }
 
@@ -93,7 +91,6 @@ function validateNIE(documentId) {
 }
 
 function validateCadastralReference(value) {
-  
   if (!value) return true;
   if (value && value.length === 14) return true;
   if (value && value.length === 20) {
@@ -108,8 +105,7 @@ function validateCadastralReference(value) {
     const sRef1 = ref1 + car;
     const sRef2 = ref2 + car;
 
-    if (DC1 === getControlDigit(sRef1) && DC2 === getControlDigit(sRef2))
-      return true;
+    if (DC1 === getControlDigit(sRef1) && DC2 === getControlDigit(sRef2)) return true;
   }
 
   return false;
@@ -138,42 +134,41 @@ function getControlDigit(ref) {
 
 function validatePhone(phone) {
   const phoneNumber = phone.replaceAll(/\s/g, '');
-  if (!phone || !phone?.length)
-    return true;
-  return (PHONE_NUMBER.test(phoneNumber));
-};
+  if (!phone || !phone?.length) return true;
+  return PHONE_NUMBER.test(phoneNumber);
+}
 
 export const validations = {
   hourFormat: {
     name: 'hourFormat',
-    cb: (value) => !isNaN(value) && value?.length <= 5,
+    cb: value => !isNaN(value) && value?.length <= 5
   },
   daysFormat: {
     name: 'daysFormat',
-    cb: (value) => !isNaN(value) && value?.length <= 5,
+    cb: value => !isNaN(value) && value?.length <= 5
   },
   nifFormat: {
     name: 'nifFormat',
-    cb: (value) => value.match(NIF_REGEX) && validateNIF(value),
+    cb: value => value.match(NIF_REGEX) && validateNIF(value)
   },
   cifFormat: {
     name: 'cifFormat',
-    cb: (value) => value.match(CIF_REGEX) && validateCIF(value),
+    cb: value => value.match(CIF_REGEX) && validateCIF(value)
   },
   nieFormat: {
     name: 'nieFormat',
-    cb: (value) => value.match(NIE_REGEX) && validateNIE(value),
+    cb: value => value.match(NIE_REGEX) && validateNIE(value)
   },
   cadastralReferenceFormat: {
     name: 'cadastralReferenceFormat',
-    cb: (value) => validateCadastralReference(value),
+    cb: value => validateCadastralReference(value)
   },
   phoneNumber: {
     name: 'phoneNumberFormat',
-    cb: (value) => validatePhone(value),
+    cb: value => validatePhone(value)
   },
   noDecimal: {
     name: 'noDecimal',
-    cb: (value) => value ? value.toString().match(NO_DECIMAL) : true
+    cb: value => (value ? value.toString().match(NO_DECIMAL) : true)
   }
 };
