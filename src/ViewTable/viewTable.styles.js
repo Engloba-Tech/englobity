@@ -95,6 +95,9 @@ export const useViewTableStyles = makeStyles(theme => ({
       '& .MuiSwitch-root': {}
     }
   },
+  numeric: {
+    whiteSpace: 'nowrap'
+  },
   isAccordionHeader: {
     fontWeight: 'bold'
   },
