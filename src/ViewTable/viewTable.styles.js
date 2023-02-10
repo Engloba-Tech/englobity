@@ -127,7 +127,10 @@ export const useViewTableStyles = makeStyles(theme => ({
   summary: {
     marginTop: theme.spacing(2.5),
     marginBottom: theme.spacing(2),
-    alignItems: 'center'
+    alignItems: 'center',
+    '& .MuiSnackbar-root': {
+      zIndex: '2200'
+    }
   },
   empty: {
     backgroundColor: 'white',

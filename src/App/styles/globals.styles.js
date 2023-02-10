@@ -30,17 +30,28 @@ export const globals = {
     position: 'absolute',
     top: 0,
     zIndex: '9999',
-    bar: {
+    '& bar': {
       zIndex: '9999',
       backgroundColor: color.primary.main
     },
-    peg: {
+    '& peg': {
       zIndex: '9999',
-
       boxShadow: 'none'
     }
   },
   '.MuiTypography-root': {
     fontFamily: 'Montserrat'
   },
+  '.MuiDialog-root': {
+    zIndex: '2200 !important'
+  },
+  '.MuiAutocomplete-popper': {
+    zIndex: '2300 !important'
+  },
+  '.MuiPopover-root': {
+    zIndex: '2300 !important'
+  },
+  '.MuiSnackbar-root': {
+    zIndex: '2300'
+  }
 };

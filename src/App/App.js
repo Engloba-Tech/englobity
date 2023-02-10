@@ -21,6 +21,7 @@ import {
   InfoIcon,
   InfoSummary,
   infoToaster,
+  LocaleDatePicker,
   NotificationsButton,
   SuccessSummary,
   successToaster,
@@ -32,6 +33,7 @@ import {
 } from '../';
 import { Select } from '../';
 import { useAppStyles } from './app.styles';
+import { TextField } from '@material-ui/core';
 import { useReceivedInvoiceLineBuildTable } from './useReceivedInvoiceLineBuildTable';
 
 export function App() {
@@ -64,36 +66,62 @@ export function App() {
     setSubmitted(false);
   }
 
-  // const data = useRef([
-  //   {
-  //     id: '9eb5e5b5-abc9-4eb7-a5ec-579499ca8c42',
-  //     externalReference: '965F327C-3064-4B6C-B84B-84B244CF4AAD',
-  //     districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
-  //     quantity: 1,
-  //     amount: 289,
-  //     description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 | PACK 1:  Retirada de enseres, Limpieza, Desenganche de suministros, Fotos del antes y del después y  Descerraje y cambio de bombín.',
-  //     isTaxExempt: false
-  //   },
-  //   {
-  //     id: '80b96bde-57a7-44fd-a66f-604f5223bd54',
-  //     externalReference: '860EDC2E-8EEC-4F6C-8682-D52C088C6AAE',
-  //     districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
-  //     quantity: 1,
-  //     amount: 391,
-  //     description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0025 | Pintura vivienda hasta 80 m2',
-  //     isTaxExempt: false
-  //   }
-  // ]);
+  function handleDateChange(e) {
+    setInputs(prevInputs => ({
+      ...prevInputs,
+      date: e?.target?.value
+    }));
+  }
 
-  // const { rows, headCells, getReceivedInvoiceLines } = useReceivedInvoiceLineBuildTable(
-  //   data.current,
-  //   onSelect,
-  //   false
-  // );
+  const data = useRef([
+    // {
+    //   id: '9eb5e5b5-abc9-4eb7-a5ec-579499ca8c42',
+    //   externalReference: '965F327C-3064-4B6C-B84B-84B244CF4AAD',
+    //   districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+    //   quantity: 1,
+    //   amount: 289,
+    //   description:
+    //     'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 | PACK 1:  Retirada de enseres, Limpieza, Desenganche de suministros, Fotos del antes y del después y  Descerraje y cambio de bombín.',
+    //   isTaxExempt: false
+    // },
+    // {
+    //   id: '80b96bde-57a7-44fd-a66f-604f5223bd54',
+    //   externalReference: '860EDC2E-8EEC-4F6C-8682-D52C088C6AAE',
+    //   districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+    //   quantity: 1,
+    //   amount: 391,
+    //   description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0025 | Pintura vivienda hasta 80 m2',
+    //   isTaxExempt: false
+    // }
+  ]);
+
+  const { rows, headCells, getReceivedInvoiceLines } = useReceivedInvoiceLineBuildTable(
+    data.current,
+    () => console.log('lol'),
+    false
+  );
 
   return (
     <>
       <Form elementRef={formRef} onSubmit={onAction} autoComplete="off">
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            margin: '2rem'
+          }}
+        >
+          {/* {JSON.stringify(inputs)} */}
+          <span>
+            <LocaleDatePicker value={inputs?.date} onChange={handleDateChange} withHours />
+
+            {/* <LocaleDatePicker value={inputs?.date} onChange={handleDateChange} /> */}
+          </span>
+          <span>
+            <TextField value={inputs?.date} />
+          </span>
+        </div>
+
         <div
           style={{
             display: 'flex',
@@ -345,67 +373,67 @@ export function App() {
             margin: '2rem'
           }}
         >
-        <span>
-          Normal
-          <Select
-            title={'Select'}
-            value={selectValue}
-            submitted={submitted}
-            displayEmpty
-            onChange={e => {
-              setSubmitted(false);
-              setSelectValue(e.target?.value);
-            }}
-            elements={[
-              { value: 0, name: 'Empty' },
-              { value: 1, name: '1' },
-              { value: 2, name: '2' },
-              { value: 3, name: '3' }
-            ]}
-          />
-        </span>
-        <span>
-          Required (check null)
-          <Select
-            title={'Select'}
-            value={selectValue}
-            displayEmpty
-            required
-            errorMessage={'Error Message'}
-            onChange={e => {
-              setSubmitted(false);
-              setSelectValue(e.target?.value);
-            }}
-            elements={[
-              { value: 0, name: 'Empty' },
-              { value: 1, name: '1' },
-              { value: 2, name: '2' },
-              { value: 3, name: '3' }
-            ]}
-          />
-        </span>
-        <span>
-          Required (with error)
-        <Select
-            title={'Select'}
-            value={selectValue || 0}
-            submitted={submitted}
-            displayEmpty
-            required
-            error={selectValue < 1 && submitted}
-            errorMessage={'Error Message'}
-            onChange={e => {
-              setSubmitted(false);
-              setSelectValue(e.target?.value);
-            }}
-            elements={[
-              { value: 0, name: 'Empty' },
-              { value: 1, name: '1' },
-              { value: 2, name: '2' },
-              { value: 3, name: '3' }
-            ]}
-          />
-        </span>
+          <span>
+            Normal
+            <Select
+              title={'Select'}
+              value={selectValue}
+              submitted={submitted}
+              displayEmpty
+              onChange={e => {
+                setSubmitted(false);
+                setSelectValue(e.target?.value);
+              }}
+              elements={[
+                { value: 0, name: 'Empty' },
+                { value: 1, name: '1' },
+                { value: 2, name: '2' },
+                { value: 3, name: '3' }
+              ]}
+            />
+          </span>
+          <span>
+            Required (check null)
+            <Select
+              title={'Select'}
+              value={selectValue}
+              displayEmpty
+              required
+              errorMessage={'Error Message'}
+              onChange={e => {
+                setSubmitted(false);
+                setSelectValue(e.target?.value);
+              }}
+              elements={[
+                { value: 0, name: 'Empty' },
+                { value: 1, name: '1' },
+                { value: 2, name: '2' },
+                { value: 3, name: '3' }
+              ]}
+            />
+          </span>
+          <span>
+            Required (with error)
+            <Select
+              title={'Select'}
+              value={selectValue || 0}
+              submitted={submitted}
+              displayEmpty
+              required
+              error={selectValue < 1 && submitted}
+              errorMessage={'Error Message'}
+              onChange={e => {
+                setSubmitted(false);
+                setSelectValue(e.target?.value);
+              }}
+              elements={[
+                { value: 0, name: 'Empty' },
+                { value: 1, name: '1' },
+                { value: 2, name: '2' },
+                { value: 3, name: '3' }
+              ]}
+            />
+          </span>
           <Button onClick={onAction}>Submit</Button>
         </div>
         <hr />
@@ -570,29 +598,62 @@ export function App() {
           <br />
           <InfoSummary className={classes.customInfoSummary} text={'This is a info summary with custom class'} />
         </div>
-        {/* <div
-        style={{
-          margin: '2rem',
-        }}
-      >
-        <ViewTable
-          rows={rows}
-          cells={headCells}
-          // allowRowToggling={false}
-          // disableOrderBy={chapterMode}
-          // isToggled={isToggled}
-          // onToggleElement={onToggleElement}
-          onFetchData={getReceivedInvoiceLines}
-          checkRowWhen={element => element.canBeDeleted}
-          checkRowDisabledReason={'disabled'}
-          // allowRowChecking={false}
-          // onCheckElement={onCheckElement}
-          // onCheckAllElements={onCheckAllElements}
-          // checkedElements={checkedElements}
-          emptyText={'no results!'}
-          nextIconButtonText={'nexttt'}
-        />
-      </div> */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            margin: '2rem'
+          }}
+        >
+          <Button onClick={() => setOpenModal(true)}>This opens a dialog</Button>
+
+          <DialogModal
+            fullWidth
+            title={'Modal'}
+            description={''}
+            isOpen={openModal}
+            onClose={() => setOpenModal(false)}
+            buttons={[
+              {
+                children: <CloseIcon />,
+                text: 'Close',
+                type: 'secondary',
+                onClick: () => setOpenModal(false)
+              },
+              {
+                children: <CloseIcon />,
+                text: 'Close',
+                type: 'secondary',
+                onClick: () => setOpenModal(false)
+              }
+            ]}
+          >
+            <p>And this the content</p>
+          </DialogModal>
+        </div>
+        <div
+          style={{
+            margin: '2rem'
+          }}
+        >
+          <ViewTable
+            rows={rows}
+            cells={headCells}
+            // allowRowToggling={false}
+            // disableOrderBy={chapterMode}
+            // isToggled={isToggled}
+            // onToggleElement={onToggleElement}
+            onFetchData={getReceivedInvoiceLines}
+            checkRowWhen={element => element.canBeDeleted}
+            checkRowDisabledReason={'disabled'}
+            // allowRowChecking={false}
+            // onCheckElement={onCheckElement}
+            // onCheckAllElements={onCheckAllElements}
+            // checkedElements={checkedElements}
+            emptyText={'no results!'}
+            nextIconButtonText={'nexttt'}
+          />
+        </div>
       </Form>
     </>
   );
