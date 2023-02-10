@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { KeyboardDateTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 import { Skeleton } from '@material-ui/lab';
 import { Input } from '..';
+import moment from 'moment';
 
 export function CustomDateTimePicker({
   withHours,
@@ -31,7 +32,7 @@ export function CustomDateTimePicker({
   const onBlur = e => {
     const event = {
       target: {
-        value: e?.target?.value
+        value: moment(e?.target?.value, 'DD/MM/YYYY HH:mm')
       }
     };
     if (!isCalendarOpen) onChange(event);
