@@ -1,6 +1,7 @@
 import { IconButton, TableCell, TextField, Tooltip } from '@material-ui/core';
 import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
 import ChipInput from 'material-ui-chip-input';
+import * as moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import shortid from 'shortid';
@@ -19,7 +20,7 @@ function FilterSwitch({
   todayDatePickerLabel,
   clearDatePickerLabel,
   cancelDatePickerLabel,
-  okDatePickerLabel,
+  okDatePickerLabel
 }) {
   const [inputs, setInputs] = useState({});
   const classes = useViewTableFiltersStyles();
@@ -39,18 +40,16 @@ function FilterSwitch({
             name={cell.id}
             className={`${classes.date} ${classes.dateLeft}`}
             value={inputs[cell.id + FILTER_SUFFIX.START]}
-            onChange={(e) => {
+            onChange={e => {
               const pickerName = cell.id + FILTER_SUFFIX.START;
-              const value = e.target.value
-                ? e.target.value.utc().format('YYYY-MM-DDTHH:mm:ss')
-                : null;
-              setInputs((prev) => ({ ...prev, [pickerName]: value }));
+              const value = e.target.value ? moment(e?.target?.value, 'DD/MM/YYYY HH:mm') : null;
+              setInputs(prev => ({ ...prev, [pickerName]: value }));
               onChange(pickerName, value);
             }}
+            error={false}
+            helperText={null}
             inputVariant="standard"
-            TextFieldComponent={(params) => (
-              <TextField placeholder={dateFromText} {...params} />
-            )}
+            TextFieldComponent={params => <TextField placeholder={dateFromText} {...params} />}
           />
           <div className={classes.dateSlash}></div>
           <LocaleDatePicker
@@ -62,18 +61,16 @@ function FilterSwitch({
             name={cell.id}
             className={`${classes.date} ${classes.dateRight}`}
             value={inputs[cell.id + FILTER_SUFFIX.END]}
-            onChange={(e) => {
+            onChange={e => {
               const pickerName = cell.id + FILTER_SUFFIX.END;
-              const value = e.target.value
-                ? e.target.value.utc().format('YYYY-MM-DDTHH:mm:ss')
-                : null;
-              setInputs((prev) => ({ ...prev, [pickerName]: value }));
+              const value = e.target.value ? moment(e?.target?.value, 'DD/MM/YYYY HH:mm') : null;
+              setInputs(prev => ({ ...prev, [pickerName]: value }));
               onChange(pickerName, value);
             }}
+            error={false}
+            helperText={null}
             inputVariant="standard"
-            TextFieldComponent={(params) => (
-              <TextField placeholder={dateUntilText} {...params} />
-            )}
+            TextFieldComponent={params => <TextField placeholder={dateUntilText} {...params} />}
           />
         </div>
       );
@@ -85,13 +82,11 @@ function FilterSwitch({
           displayEmpty
           variant={'standard'}
           style={{ margin: 0 }}
-          value={
-            inputs[cell.filterBy || cell.id] || cell.filterValues[0]?.value
-          }
-          onChange={(e) => {
-            setInputs((prev) => ({
+          value={inputs[cell.filterBy || cell.id] || cell.filterValues[0]?.value}
+          onChange={e => {
+            setInputs(prev => ({
               ...prev,
-              [cell.filterBy || cell.id]: e.target.value,
+              [cell.filterBy || cell.id]: e.target.value
             }));
             onChange(cell.filterBy || cell.id, e.target.value);
           }}
@@ -101,10 +96,10 @@ function FilterSwitch({
       return (
         <ChipInput
           defaultValue={inputs[cell.filterBy || cell.id] || []}
-          onChange={(value) => {
-            setInputs((prev) => ({
+          onChange={value => {
+            setInputs(prev => ({
               ...prev,
-              [cell.filterBy || cell.id]: value,
+              [cell.filterBy || cell.id]: value
             }));
             onChange(cell.filterBy || cell.id, value);
           }}
@@ -117,7 +112,7 @@ function FilterSwitch({
         <TextField
           fullWidth
           defaultValue={inputs[cell.filterBy || cell.id]}
-          onChange={(e) => onChange(cell.id, e.target.value)}
+          onChange={e => onChange(cell.id, e.target.value)}
         />
       );
   }
@@ -132,7 +127,7 @@ FilterSwitch.propTypes = {
   todayDatePickerLabel: PropTypes.string,
   clearDatePickerLabel: PropTypes.string,
   cancelDatePickerLabel: PropTypes.string,
-  okDatePickerLabel: PropTypes.string,
+  okDatePickerLabel: PropTypes.string
 };
 
 function _viewTableFilters({
@@ -145,7 +140,7 @@ function _viewTableFilters({
   todayDatePickerLabel,
   clearDatePickerLabel,
   cancelDatePickerLabel,
-  okDatePickerLabel,
+  okDatePickerLabel
 }) {
   const classes = useViewTableFiltersStyles();
 
@@ -158,7 +153,7 @@ function _viewTableFilters({
     <>
       {cells && cells.length && (
         <>
-          {cells.map((cell) => {
+          {cells.map(cell => {
             return (
               <TableCell key={shortid.generate()} component="th">
                 {cell.label && (
@@ -177,28 +172,18 @@ function _viewTableFilters({
               </TableCell>
             );
           })}
-          {cells.some((cell) => cell.action) ? (
+          {cells.some(cell => cell.action) ? (
             onFilterClear && (
               <Tooltip title={clearFiltersText}>
-                <IconButton
-                  className={classes.clearFilters}
-                  onClick={resetFilter}
-                >
+                <IconButton className={classes.clearFilters} onClick={resetFilter}>
                   <DeleteSweepIcon />
                 </IconButton>
               </Tooltip>
             )
           ) : (
-            <TableCell
-              className={classes.newTableCell}
-              key={shortid.generate()}
-              component="th"
-            >
+            <TableCell className={classes.newTableCell} key={shortid.generate()} component="th">
               <Tooltip title={clearFiltersText}>
-                <IconButton
-                  className={classes.clearFiltersNewCol}
-                  onClick={resetFilter}
-                >
+                <IconButton className={classes.clearFiltersNewCol} onClick={resetFilter}>
                   <DeleteSweepIcon />
                 </IconButton>
               </Tooltip>
@@ -222,5 +207,5 @@ _viewTableFilters.propTypes = {
   todayDatePickerLabel: PropTypes.string,
   clearDatePickerLabel: PropTypes.string,
   cancelDatePickerLabel: PropTypes.string,
-  okDatePickerLabel: PropTypes.string,
+  okDatePickerLabel: PropTypes.string
 };

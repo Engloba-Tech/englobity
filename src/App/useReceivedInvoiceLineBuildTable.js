@@ -65,6 +65,13 @@ export const useReceivedInvoiceLineBuildTable = (inputs, handleSelect, chapterMo
         showOnlyCheck: true
       },
       {
+        id: 'anyDate',
+        numeric: false,
+        disablePadding: false,
+        label: 'Date',
+        filterType: FILTER_TYPE.DATE
+      },
+      {
         id: 'edit',
         action: true
       }
@@ -94,7 +101,7 @@ export const useReceivedInvoiceLineBuildTable = (inputs, handleSelect, chapterMo
           total: 12,
           isAccordionHeader: true,
           edit: {
-            title: 'actions.edit',
+            title: 'actions.edit'
             // cb: () => handleSelect(receivedInvoiceLine),
           }
         });
