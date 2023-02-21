@@ -34,8 +34,7 @@ export const useViewTableFiltersStyles = makeStyles(theme => ({
     zIndex: '2',
   },
   clearFiltersNewCol: {
-    padding: '7px !important',
-    marginTop: '-10px',
+    marginLeft: '-10px',
     zIndex: '2',
   },
   newTableCell: {
