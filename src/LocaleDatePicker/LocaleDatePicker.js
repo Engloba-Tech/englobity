@@ -1,15 +1,14 @@
+import MomentUtils from '@date-io/moment';
 import DateRangeIcon from '@material-ui/icons/DateRange';
-
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { DateTimePicker } from '../DateTimePicker';
 
 import 'moment/locale/ca';
 import 'moment/locale/es';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
 
 export function LocaleDatePicker({
   onChange,
@@ -20,6 +19,9 @@ export function LocaleDatePicker({
   okDatePickerLabel,
   ...props
 }) {
+
+  const [locale, setLocale] = useState('en');
+
   useEffect(() => {
     const lng = localStorage.getItem('i18nextLng');
     moment.locale(lng);
@@ -30,7 +32,7 @@ export function LocaleDatePicker({
   };
 
   return (
-    <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
+    <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale={locale}>
       <DateTimePicker
         {...props}
         showTodayButton={false}

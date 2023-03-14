@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { KeyboardDateTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 import { Skeleton } from '@material-ui/lab';
-import { Input } from '..';
+import { KeyboardDatePicker, KeyboardDateTimePicker } from '@material-ui/pickers';
 import moment from 'moment';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+
+import { Input } from '..';
 
 export function CustomDateTimePicker({
   withHours,
@@ -64,6 +65,8 @@ export function CustomDateTimePicker({
           format="DD/MM/YYYY HH:mm"
           onOpen={() => setIsCalendarOpen(true)}
           onClose={() => setIsCalendarOpen(false)}
+          minDate={undefined}
+          maxDate={undefined}
         />
       ) : (
         <KeyboardDatePicker
@@ -71,6 +74,8 @@ export function CustomDateTimePicker({
           format="DD/MM/YYYY"
           onOpen={() => setIsCalendarOpen(true)}
           onClose={() => setIsCalendarOpen(false)}
+          minDate={undefined}
+          maxDate={undefined}
         />
       )}
     </>

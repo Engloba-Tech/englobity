@@ -139,6 +139,10 @@ function validatePhone(phone) {
 }
 
 export const validations = {
+  dateFormat : {
+    name: 'dateFormat',
+    cb: value => false
+  },
   hourFormat: {
     name: 'hourFormat',
     cb: value => !isNaN(value) && value?.length <= 5

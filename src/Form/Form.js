@@ -1,14 +1,19 @@
-import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import { ValidatorForm } from 'react-material-ui-form-validator';
+
 import { Summary } from '../Summary';
-import { validations } from './validations';
 import { useFormStyles } from './form.styles';
+import { validations } from './validations';
 
 export function Form({ children, errors, elementRef, ...props }) {
 	const classes = useFormStyles();
 
 	useEffect(() => {
+    ValidatorForm.addValidationRule(
+			validations.dateFormat.name,
+			validations.dateFormat.cb
+		);
 		ValidatorForm.addValidationRule(
 			validations.hourFormat.name,
 			validations.hourFormat.cb

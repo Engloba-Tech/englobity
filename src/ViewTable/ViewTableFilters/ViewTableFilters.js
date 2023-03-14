@@ -5,8 +5,8 @@ import * as moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import shortid from 'shortid';
-import { LocaleDatePicker } from '../../LocaleDatePicker';
 
+import { LocaleDatePicker } from '../../LocaleDatePicker';
 import { Select } from '../../Select';
 // import { FILTER_SUFFIX, FILTER_TYPE } from '../../LocaleDatePicker';
 import { FILTER_TYPE, FILTER_SUFFIX } from './viewTableFilters.const';
@@ -25,6 +25,15 @@ function FilterSwitch({
   const [inputs, setInputs] = useState({});
   const classes = useViewTableFiltersStyles();
 
+  const handleEnterKey = e => {
+    if (e.key === 'Enter') {
+      const pickerName = cell.id + FILTER_SUFFIX.START;
+      const value = e.target.value ? moment(e?.target?.value, 'DD/MM/YYYY HH:mm') : null;
+      setInputs(prev => ({ ...prev, [pickerName]: value }));
+      onChange(pickerName, value);
+    }
+  };
+
   switch (cell.filterType) {
     case FILTER_TYPE.NONE:
       return null;
@@ -37,6 +46,7 @@ function FilterSwitch({
             cancelDatePickerLabel={cancelDatePickerLabel}
             okDatePickerLabel={okDatePickerLabel}
             clearable
+            onKeyDown={handleEnterKey}
             name={cell.id}
             className={`${classes.date} ${classes.dateLeft}`}
             value={inputs[cell.id + FILTER_SUFFIX.START]}
@@ -58,6 +68,7 @@ function FilterSwitch({
             cancelDatePickerLabel={cancelDatePickerLabel}
             okDatePickerLabel={okDatePickerLabel}
             clearable
+            onKeyDown={handleEnterKey}
             name={cell.id}
             className={`${classes.date} ${classes.dateRight}`}
             value={inputs[cell.id + FILTER_SUFFIX.END]}
