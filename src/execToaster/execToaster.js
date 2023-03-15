@@ -119,7 +119,7 @@ export function successToaster(text, detail, duration = 6000, className) {
     name: text,
     text: detail,
     type: TOASTER_TYPES.SUCCESS,
-    duration: duration,
+    duration,
     className
   });
 }
@@ -129,7 +129,7 @@ export function warningToaster(text, detail, duration, className) {
     name: text,
     text: detail,
     type: TOASTER_TYPES.WARNING,
-    duration: duration,
+    duration,
     className
   });
 }
@@ -139,7 +139,7 @@ export function errorToaster(text, detail, duration, className) {
     name: text,
     text: detail,
     type: TOASTER_TYPES.ERROR,
-    duration: duration,
+    duration,
     className
   });
 }
@@ -148,7 +148,7 @@ export function infoToaster(text, detail, duration, className) {
     name: text,
     text: detail,
     type: TOASTER_TYPES.INFO,
-    duration: duration,
+    duration,
     className
   });
 }

@@ -226,8 +226,7 @@ export const useViewTableStyles = makeStyles(theme => ({
     fontWeight: theme.font.weight.semibold
   },
   verticalAlign: {
-    display: 'inline-block',
-    verticalAlign: 'middle'
+    display: 'inline-block'
   },
   disabled: {
     opacity: 0.5

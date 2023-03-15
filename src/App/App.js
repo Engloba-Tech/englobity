@@ -6,7 +6,34 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import clsx from 'clsx';
 import React, { useRef, useState } from 'react';
 
-import { AlertIcon, Avatar, BooleanIcon, Button, ButtonAdd, ButtonDelete, ButtonGroup, ButtonMulti, ButtonSave, DialogModal, Dropzone, ErrorSummary, errorToaster, Form, InfoIcon, InfoSummary, infoToaster, LocaleDatePicker, NotificationsButton, SuccessSummary, successToaster, Tabs, ViewTable, WarningIcon, WarningSummary, warningToaster } from '../';
+import {
+  AlertIcon,
+  Avatar,
+  BooleanIcon,
+  Button,
+  ButtonAdd,
+  ButtonDelete,
+  ButtonGroup,
+  ButtonMulti,
+  ButtonSave,
+  DialogModal,
+  Dropzone,
+  ErrorSummary,
+  errorToaster,
+  Form,
+  InfoIcon,
+  InfoSummary,
+  infoToaster,
+  LocaleDatePicker,
+  NotificationsButton,
+  SuccessSummary,
+  successToaster,
+  Tabs,
+  ViewTable,
+  WarningIcon,
+  WarningSummary,
+  warningToaster
+} from '../';
 import { Select } from '../';
 import { useAppStyles } from './app.styles';
 import { useReceivedInvoiceLineBuildTable } from './useReceivedInvoiceLineBuildTable';
@@ -49,25 +76,29 @@ export function App() {
   }
 
   const data = useRef([
-    // {
-    //   id: '9eb5e5b5-abc9-4eb7-a5ec-579499ca8c42',
-    //   externalReference: '965F327C-3064-4B6C-B84B-84B244CF4AAD',
-    //   districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
-    //   quantity: 1,
-    //   amount: 289,
-    //   description:
-    //     'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 | PACK 1:  Retirada de enseres, Limpieza, Desenganche de suministros, Fotos del antes y del después y  Descerraje y cambio de bombín.',
-    //   isTaxExempt: false
-    // },
-    // {
-    //   id: '80b96bde-57a7-44fd-a66f-604f5223bd54',
-    //   externalReference: '860EDC2E-8EEC-4F6C-8682-D52C088C6AAE',
-    //   districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
-    //   quantity: 1,
-    //   amount: 391,
-    //   description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0025 | Pintura vivienda hasta 80 m2',
-    //   isTaxExempt: false
-    // }
+    {
+      id: '9eb5e5b5-abc9-4eb7-a5ec-579499ca8c42',
+      externalReference: '965F327C-3064-4B6C-B84B-84B244CF4AAD',
+      districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+      quantity: 1,
+      amount: 289,
+      description:
+        'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 | PACK 1:  Retirada de enseres, Limpieza, Desenganche de suministros, Fotos del antes y del después y  Descerraje y cambio de bombín.',
+      isTaxExempt: true,
+      additional: true,
+      anyDate: '12/02/2023',
+      otro: <BooleanIcon condition={true}></BooleanIcon>
+    },
+    {
+      id: '80b96bde-57a7-44fd-a66f-604f5223bd54',
+      externalReference: '860EDC2E-8EEC-4F6C-8682-D52C088C6AAE',
+      districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+      quantity: 1,
+      amount: 391,
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0025 | Pintura vivienda hasta 80 m2',
+      isTaxExempt: false,
+      anyDate: '12/12/2022'
+    }
   ]);
 
   const { rows, headCells, getReceivedInvoiceLines } = useReceivedInvoiceLineBuildTable(
@@ -90,11 +121,6 @@ export function App() {
             {JSON.stringify(inputs?.date)}
             <span>
               <LocaleDatePicker value={inputs?.date} onChange={handleDateChange} />
-
-              {/* <LocaleDatePicker value={inputs?.date} onChange={handleDateChange} /> */}
-            </span>
-            <span>
-              {/* <TextField value={JSON.stringify(inputs?.date)} /> */}
             </span>
           </div>
 
@@ -358,7 +384,7 @@ export function App() {
                 displayEmpty
                 onChange={e => {
                   setSubmitted(false);
-                  setSelectValue(e.target?.value);
+                  setSelectValue(e?.target?.value);
                 }}
                 elements={[
                   { value: 0, name: 'Empty' },
@@ -560,6 +586,63 @@ export function App() {
             </Button>
             <Button onClick={() => successToaster('Success!', null, null, classes.customInfoSummary)}>
               Success with className!
+            </Button>
+            <Button onClick={() => errorToaster('Error', null, null, classes.customInfoSummary)}>
+              Error with className
+            </Button>
+            <Button onClick={() => infoToaster('Info')}>Info!</Button>
+            <Button onClick={() => warningToaster('Warning!')}>Warning!</Button>
+          </div>
+          <div
+            style={{
+              margin: '2rem'
+            }}
+          >
+            <br />
+            <SuccessSummary text={'This is a success summary'} />
+            <br />
+            <ErrorSummary text={'This is a error summary'} />
+            <br />
+            <WarningSummary text={'This is a warning summary'} />
+            <br />
+            <InfoSummary text={'This is a info summary'} />
+            <br />
+            <InfoSummary className={classes.customInfoSummary} text={'This is a info summary with custom class'} />
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              margin: '2rem'
+            }}
+          >
+            <Button onClick={() => setOpenModal(true)}>This opens a dialog</Button>
+            <div>
+              <span>With tooltip negative:</span>
+              <br />
+              <BooleanIcon falseText={'Text to display when negative'} condition={false} />
+            </div>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              margin: '2rem'
+            }}
+          >
+            <Button onClick={() => errorToaster('Error!', 'This is an error toast')}>Error!</Button>
+            <Button onClick={() => errorToaster('Multiline Error!', ['This is a', 'multi line', 'error toast.'])}>
+              Multiline Error!
+            </Button>
+            <Button onClick={() => successToaster('Success!')}>Success!</Button>
+            <Button onClick={() => successToaster('Success!', 'This is success toast with detail')}>
+              Success with detail!
+            </Button>
+            <Button onClick={() => successToaster('Success!', null, null, classes.customInfoSummary)}>
+              Success with className!
+            </Button>
+            <Button onClick={() => errorToaster('Error', null, null, classes.customInfoSummary)}>
+              Error with className!
             </Button>
             <Button onClick={() => infoToaster('Info')}>Info!</Button>
             <Button onClick={() => warningToaster('Warning!')}>Warning!</Button>

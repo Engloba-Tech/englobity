@@ -4,6 +4,9 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { skeletonHelper } from '../helper/skeleton.helper';
 import { rowFilterHelper } from '../helper/rowFilter.helper';
 import { FILTER_TYPE } from '../ViewTable/ViewTableFilters';
+import { Tooltip } from '@material-ui/core';
+import { WarningRounded } from '@material-ui/icons';
+import { color } from './styles/color.styles';
 
 export const useReceivedInvoiceLineBuildTable = (inputs, handleSelect, chapterMode) => {
   const [rows, setRows] = useState([]);
@@ -62,7 +65,15 @@ export const useReceivedInvoiceLineBuildTable = (inputs, handleSelect, chapterMo
           trueText: 'receivedInvoiceLine.taxExemptOptions.isTaxExempt',
           falseText: 'receivedInvoiceLine.taxExemptOptions.isNotTaxExempt'
         },
-        showOnlyCheck: true
+        additionalProperty: {
+          value: element =>
+            element?.additional && (
+              <Tooltip title={'suppliers:homologation.workersHomologation'} placement="top">
+                <WarningRounded style={{ color: color.icons.warn, fontSize: 25, width: '1.4em' }} />
+              </Tooltip>
+            ),
+          afterParent: true
+        }
       },
       {
         id: 'anyDate',
@@ -70,6 +81,27 @@ export const useReceivedInvoiceLineBuildTable = (inputs, handleSelect, chapterMo
         disablePadding: false,
         label: 'Date',
         filterType: FILTER_TYPE.DATE
+      },
+      {
+        id: 'otro',
+        numeric: false,
+        disablePadding: false,
+        label: 'Otro',
+        filterType: FILTER_TYPE.COMBO,
+        filterValues: taxExemptElements,
+        tooltip: {
+          trueText: 'receivedInvoiceLine.taxExemptOptions.isTaxExempt',
+          falseText: 'receivedInvoiceLine.taxExemptOptions.isNotTaxExempt'
+        },
+        additionalProperty: {
+          value: element =>
+            element?.additional && (
+              <Tooltip title={'suppliers:homologation.workersHomologation'} placement="top">
+                <WarningRounded style={{ color: color.icons.warn, fontSize: 25, width: '1.4em' }} />
+              </Tooltip>
+            ),
+          afterParent: true
+        }
       },
       {
         id: 'edit',
@@ -100,6 +132,10 @@ export const useReceivedInvoiceLineBuildTable = (inputs, handleSelect, chapterMo
           workOrder: receivedInvoiceLine.workOrder,
           total: 12,
           isAccordionHeader: true,
+          anyDate: receivedInvoiceLine?.anyDate ?? '-',
+          bool: receivedInvoiceLine.bool,
+          additional: receivedInvoiceLine.additional,
+          otro: receivedInvoiceLine.otro,
           edit: {
             title: 'actions.edit'
             // cb: () => handleSelect(receivedInvoiceLine),
@@ -130,6 +166,10 @@ export const useReceivedInvoiceLineBuildTable = (inputs, handleSelect, chapterMo
             ? receivedInvoiceLine.amount
             : receivedInvoiceLine.amount,
           isTaxExempt: receivedInvoiceLine.isTaxExempt,
+          anyDate: receivedInvoiceLine?.anyDate ?? '-',
+          bool: receivedInvoiceLine.bool,
+          additional: receivedInvoiceLine.additional,
+          otro: receivedInvoiceLine.otro,
           edit: {
             title: 'actions.view',
             cb: () => handleSelect(receivedInvoiceLine),
