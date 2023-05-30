@@ -693,6 +693,7 @@ export function App() {
                 }
               ]}
             >
+              <SuccessSummary text={'This is a success summary'} />
               <p>And this the content</p>
             </DialogModal>
           </div>

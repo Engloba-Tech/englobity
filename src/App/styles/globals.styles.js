@@ -10,7 +10,7 @@ export const globals = {
       fontFamily: 'Montserrat'
     },
     backgroundColor: color.secondary.main,
-    '& hr':{
+    '& hr': {
       opacity: 0.2
     }
   },
@@ -52,6 +52,6 @@ export const globals = {
     zIndex: '2300 !important'
   },
   '.MuiSnackbar-root': {
-    zIndex: '2300'
+    zIndex: '2100'
   }
 };
