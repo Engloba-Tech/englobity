@@ -26,7 +26,7 @@ export const useViewTableStyles = makeStyles(theme => ({
     overflow: 'hidden'
   },
   tableContainer: {
-    maxHeight: '85vh',
+    maxHeight: '77vh',
     borderRadius: '4px 4px 0px 0px'
   },
   cellDate: { width: '18rem' },
@@ -149,6 +149,7 @@ export const useViewTableStyles = makeStyles(theme => ({
     marginLeft: '1rem'
   },
   footerWrapper: {
+    maxHeight: '10vh',
     borderRadius: '0px 0px 4px 4px',
     background: 'white',
     display: 'flex',
