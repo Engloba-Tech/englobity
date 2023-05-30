@@ -66,7 +66,7 @@ export function CustomSelect({
 
 CustomSelect.propTypes = {
   className: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   elements: PropTypes.arrayOf(
     PropTypes.shape({

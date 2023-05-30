@@ -33,7 +33,7 @@ export function CustomSwitch({
 }
 
 CustomSwitch.propTypes = {
-	label: PropTypes.string.isRequired,
+	label: PropTypes.string,
 	className: PropTypes.string,
 	isLoading: PropTypes.bool,
 	skeletonHeight: PropTypes.number,
