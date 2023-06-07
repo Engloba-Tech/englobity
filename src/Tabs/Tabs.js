@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import Close from '@material-ui/icons/Close';
@@ -27,6 +27,10 @@ export function CustomTabs({
   const [tabPosition, setTabPosition] = useState(defaultPosition);
   const theme = useTheme();
   const classes = useTabsStyles();
+
+  useEffect(() => {
+    setTabPosition(defaultPosition);
+  }, [defaultPosition]);
 
   async function addTab() {
     if (!isDynamic) {
