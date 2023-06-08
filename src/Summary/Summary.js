@@ -9,10 +9,10 @@ export const SUMMARY_TYPES = {
   ERROR: 'error',
   WARNING: 'warning',
   INFO: 'info',
-  SUCCESS: 'success',
+  SUCCESS: 'success'
 };
 
-export function Summary({ text, severity, className, ...props }) {
+export function Summary({ text, detail, severity, className, ...props }) {
   const classes = useSummaryStyles();
   const [display, setDisplay] = useState(true);
   return (
@@ -21,6 +21,7 @@ export function Summary({ text, severity, className, ...props }) {
         <SnackAlert
           className={classes.summary}
           name={text}
+          text={detail}
           type={severity}
           onClose={() => {
             setDisplay(false);
@@ -31,35 +32,19 @@ export function Summary({ text, severity, className, ...props }) {
   );
 }
 
-export function SuccessSummary({ text, className }) {
-  return (
-    <Summary
-      text={text}
-      className={className}
-      severity={SUMMARY_TYPES.SUCCESS}
-    />
-  );
+export function SuccessSummary({ text, detail, className }) {
+  return <Summary text={text} detail={detail} className={className} severity={SUMMARY_TYPES.SUCCESS} />;
 }
 
-export function WarningSummary({ text, className }) {
-  return (
-    <Summary
-      text={text}
-      className={className}
-      severity={SUMMARY_TYPES.WARNING}
-    />
-  );
+export function WarningSummary({ text, detail, className }) {
+  return <Summary text={text} detail={detail} className={className} severity={SUMMARY_TYPES.WARNING} />;
 }
 
-export function ErrorSummary({ text, className }) {
-  return (
-    <Summary text={text} className={className} severity={SUMMARY_TYPES.ERROR} />
-  );
+export function ErrorSummary({ text, detail, className }) {
+  return <Summary text={text} detail={detail} className={className} severity={SUMMARY_TYPES.ERROR} />;
 }
-export function InfoSummary({ text, className }) {
-  return (
-    <Summary text={text} className={className} severity={SUMMARY_TYPES.INFO} />
-  );
+export function InfoSummary({ text, detail, className }) {
+  return <Summary text={text} detail={detail} className={className} severity={SUMMARY_TYPES.INFO} />;
 }
 
 Summary.propTypes = {
@@ -67,5 +52,5 @@ Summary.propTypes = {
   detail: PropTypes.string,
   className: PropTypes.string,
   seeMoreText: PropTypes.string,
-  severity: PropTypes.oneOf(['error', 'warning', 'info', 'success']).isRequired,
+  severity: PropTypes.oneOf(['error', 'warning', 'info', 'success']).isRequired
 };

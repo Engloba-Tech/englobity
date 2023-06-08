@@ -41,7 +41,7 @@ export function SnackAlert({ name, text, type, unmount, position, onClose, durat
           fontWeight: text && 'bold'
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', width: '99%' }}>
           {type === TOASTER_TYPES.ERROR && <AlertIcon />}
           {type === TOASTER_TYPES.SUCCESS && <BooleanIcon condition={true} />}
           {type === TOASTER_TYPES.INFO && <InfoIcon />}

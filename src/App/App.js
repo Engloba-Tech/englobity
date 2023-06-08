@@ -691,6 +691,8 @@ export function App() {
             <InfoSummary text={'This is a info summary'} />
             <br />
             <InfoSummary className={classes.customInfoSummary} text={'This is a info summary with custom class'} />
+            <br />
+            <ErrorSummary text={'This is a error summary With detail'} detail={['This is a detail', 'This is another detail', 'And another one']} />
           </div>
           <hr />
 
