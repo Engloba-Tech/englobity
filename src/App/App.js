@@ -11,6 +11,7 @@ import {
   Avatar,
   BooleanIcon,
   Button,
+  ButtonActivateDesactivateNotifications,
   ButtonAdd,
   ButtonDelete,
   ButtonGroup,
@@ -44,6 +45,7 @@ export function App() {
   const [inputs, setInputs] = useState(null);
   const [submitted, setSubmitted] = useState(null);
   const [selectValue, setSelectValue] = useState(null);
+  const [notificationsTurnedOn, setNotificationsTurnedOn] = useState(false);
   const formRef = useRef(null);
 
   const onAction = e => {
@@ -128,8 +130,7 @@ export function App() {
       districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
       quantity: 1,
       amount: 289,
-      description:
-        'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 ',
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 ',
       isTaxExempt: true,
       additional: true,
       anyDate: '12/02/2023',
@@ -151,8 +152,7 @@ export function App() {
       districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
       quantity: 1,
       amount: 289,
-      description:
-        'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 ',
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 ',
       isTaxExempt: true,
       additional: true,
       anyDate: '12/02/2023',
@@ -174,8 +174,7 @@ export function App() {
       districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
       quantity: 1,
       amount: 289,
-      description:
-        'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 ',
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 ',
       isTaxExempt: true,
       additional: true,
       anyDate: '12/02/2023',
@@ -197,8 +196,7 @@ export function App() {
       districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
       quantity: 1,
       amount: 289,
-      description:
-        'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 ',
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 ',
       isTaxExempt: true,
       additional: true,
       anyDate: '12/02/2023',
@@ -213,7 +211,7 @@ export function App() {
       description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0025 ',
       isTaxExempt: false,
       anyDate: '12/12/2022'
-    },
+    }
   ]);
 
   const { rows, headCells, getReceivedInvoiceLines } = useReceivedInvoiceLineBuildTable(
@@ -313,6 +311,14 @@ export function App() {
                 onClick={() => {
                   alert('clicked');
                 }}
+              />
+            </span>
+            <span>
+              Turn on / off notif
+              <br />
+              <ButtonActivateDesactivateNotifications
+                active={notificationsTurnedOn}
+                onClick={() => setNotificationsTurnedOn(!notificationsTurnedOn)}
               />
             </span>
           </div>
@@ -692,7 +698,10 @@ export function App() {
             <br />
             <InfoSummary className={classes.customInfoSummary} text={'This is a info summary with custom class'} />
             <br />
-            <ErrorSummary text={'This is a error summary With detail'} detail={['This is a detail', 'This is another detail', 'And another one']} />
+            <ErrorSummary
+              text={'This is a error summary With detail'}
+              detail={['This is a detail', 'This is another detail', 'And another one']}
+            />
           </div>
           <hr />
 
