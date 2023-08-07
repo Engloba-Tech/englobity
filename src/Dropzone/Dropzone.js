@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDropzone } from 'react-dropzone';
 import { useTheme } from '@material-ui/core/styles';
 import { Skeleton } from '@material-ui/lab';
-import { Button, Chip, FormHelperText, Typography } from '@material-ui/core';
+import { Button, Chip, FormHelperText, Tooltip, Typography } from '@material-ui/core';
 import { FileCopy } from '@material-ui/icons';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { useDropzoneStyles } from './dropzone.styles';
@@ -73,13 +73,15 @@ export function Dropzone({
             isLoading ? (
               <Skeleton width="215px" height={skeletonHeight} />
             ) : (
-              <Chip
-                disabled={disabled}
-                icon={<FileCopy />}
-                label={fileReaded}
-                onDelete={() => handleDeleteFile()}
-                className={classes.chip}
-              />
+              <Tooltip title={fileReaded}>
+                <Chip
+                  disabled={disabled}
+                  icon={<FileCopy />}
+                  label={fileReaded}
+                  onDelete={() => handleDeleteFile()}
+                  className={classes.chip}
+                />
+              </Tooltip>
             )
           ) : (
             <div className={classes.message}>
