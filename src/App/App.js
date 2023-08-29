@@ -36,9 +36,9 @@ import {
   WarningSummary,
   warningToaster
 } from '../';
+import { execAwaitedModal } from '../execAwaitedModal';
 import { useAppStyles } from './app.styles';
 import { useReceivedInvoiceLineBuildTable } from './useReceivedInvoiceLineBuildTable';
-import { execAwaitedgModal } from '../execAwaitedModal';
 
 require('babel-polyfill');
 
@@ -718,7 +718,7 @@ export function App() {
             <Button onClick={() => setOpenModal(true)}>This opens a dialog</Button>
             <Button
               onClick={async () => {
-                await execAwaitedgModal({
+                await execAwaitedModal({
                   title: 'Title',
                   description: 'description',
                   buttonsFn: (reject, resolve) => [

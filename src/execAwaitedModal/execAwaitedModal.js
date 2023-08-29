@@ -6,7 +6,7 @@ import globalStyles from '../App/styles';
 import { DialogModal } from '../DialogModal';
 import React from 'react';
 
-export function execAwaitedgModal({ title, description, buttonsFn, children, idGenerated, ...rest }) {
+export function execAwaitedModal({ title, description, buttonsFn, children, idGenerated, ...rest }) {
   function rejectPromise(global, entryPointToasterDom, idGenerated, reject) {
     ReactDOM.unmountComponentAtNode(document.getElementById(idGenerated));
     global.removeChild(entryPointToasterDom);
@@ -54,7 +54,7 @@ export function execAwaitedgModal({ title, description, buttonsFn, children, idG
   });
 }
 
-execAwaitedgModal.propTypes = {
+execAwaitedModal.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
