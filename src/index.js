@@ -20,3 +20,4 @@ export * from './Icons';
 export * from './execToaster';
 export * from './ViewTable';
 export * from './LocaleDatePicker';
+export * from './execAwaitedModal';
