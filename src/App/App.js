@@ -1,7 +1,7 @@
 import MomentUtils from '@date-io/moment';
-import { TextField } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
+import DoneIcon from '@material-ui/icons/Done';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import clsx from 'clsx';
 import React, { useRef, useState } from 'react';
@@ -27,6 +27,7 @@ import {
   infoToaster,
   LocaleDatePicker,
   NotificationsButton,
+  Select,
   SuccessSummary,
   successToaster,
   Tabs,
@@ -35,9 +36,11 @@ import {
   WarningSummary,
   warningToaster
 } from '../';
-import { Select } from '../';
 import { useAppStyles } from './app.styles';
 import { useReceivedInvoiceLineBuildTable } from './useReceivedInvoiceLineBuildTable';
+import { execAwaitedgModal } from '../execAwaitedModal';
+
+require('babel-polyfill');
 
 export function App() {
   const classes = useAppStyles();
@@ -713,6 +716,37 @@ export function App() {
             }}
           >
             <Button onClick={() => setOpenModal(true)}>This opens a dialog</Button>
+            <Button
+              onClick={async () => {
+                await execAwaitedgModal({
+                  title: 'Title',
+                  description: 'description',
+                  buttonsFn: (reject, resolve) => [
+                    {
+                      children: <CloseIcon />,
+                      type: 'secondary',
+                      text: 'decline',
+                      onClick: () => {
+                        reject();
+                      }
+                    },
+                    {
+                      children: <DoneIcon />,
+                      type: 'primary',
+                      text: 'approve',
+                      onClick: () => {
+                        resolve();
+                      }
+                    }
+                  ],
+                  children: <>Random children text</>,
+                  idGenerated: 'merengue'
+                });
+                alert('The modal has ben closed!');
+              }}
+            >
+              This opens an awaited dialog
+            </Button>
 
             <DialogModal
               fullWidth
@@ -748,6 +782,7 @@ export function App() {
               rows={rows}
               cells={headCells}
               // allowRowToggling={false}
+              defaultOrderBy={{ property: 'amount', direction: 'asc' }}
               // disableOrderBy={chapterMode}
               // isToggled={isToggled}
               // onToggleElement={onToggleElement}
