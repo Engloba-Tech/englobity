@@ -39,6 +39,7 @@ import {
 import { execAwaitedModal } from '../execAwaitedModal';
 import { useAppStyles } from './app.styles';
 import { useReceivedInvoiceLineBuildTable } from './useReceivedInvoiceLineBuildTable';
+import { useTogglingElements } from './useTogglingElements';
 
 require('babel-polyfill');
 
@@ -220,8 +221,12 @@ export function App() {
   const { rows, headCells, getReceivedInvoiceLines } = useReceivedInvoiceLineBuildTable(
     data.current,
     () => console.log('lol'),
-    false
+    true
   );
+
+  const { onToggleElement, isToggled } = useTogglingElements({
+    toggleProperty: 'externalReference'
+  });
 
   return (
     <>
@@ -781,11 +786,11 @@ export function App() {
             <ViewTable
               rows={rows}
               cells={headCells}
-              // allowRowToggling={false}
+              allowRowToggling={true}
               defaultOrderBy={{ property: 'amount', direction: 'asc' }}
-              // disableOrderBy={chapterMode}
-              // isToggled={isToggled}
-              // onToggleElement={onToggleElement}
+              disableOrderBy={true}
+              isToggled={isToggled}
+              onToggleElement={onToggleElement}
               onFetchData={getReceivedInvoiceLines}
               checkRowWhen={element => element.canBeDeleted}
               checkRowDisabledReason={'disabled'}

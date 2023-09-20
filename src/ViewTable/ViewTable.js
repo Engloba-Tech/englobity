@@ -53,6 +53,7 @@ export function _viewTable({
   allowRowToggling,
   onToggleElement,
   isToggled,
+  isVisible,
   emptyText,
   rowsPerPageText,
   checkedElementsCountText,
@@ -193,10 +194,10 @@ export function _viewTable({
             <TableBody>
               {getVisibleRows(rows).map((row, index) => {
                 const isItemChecked = isChecked && isChecked(row);
-                const isItemVisible =
-                  (allowRowToggling && isToggled(row)) ||
-                  row.isAccordionHeader ||
-                  !allowRowToggling;
+                const isItemVisible = (isVisible && isVisible(row)) ||
+                  ((allowRowToggling && isToggled(row)) ||
+                  // row.isAccordionHeader ||
+                  !allowRowToggling);
                 const isItemToggled =
                   (allowRowToggling && isToggled(row)) || !allowRowToggling;
                 const labelId = `enhanced-table-checkbox-${index}`;
@@ -240,6 +241,7 @@ export function _viewTable({
                               disabled={!ableSelectRow(row)}
                               checked={isItemChecked}
                               inputProps={{ 'aria-labelledby': labelId }}
+                              style={{ marginLeft: row.tabulationLevel ? row.tabulationLevel === 1 ? '15px' : '30px' : '0px'}}
                             />
                           </div>
                         </Tooltip>
@@ -252,11 +254,13 @@ export function _viewTable({
                           <ChevronRightIcon
                             onClick={() => onToggleElement(row)}
                             color="primary"
+                            style={{ marginLeft: row.tabulationLevel ? row.tabulationLevel === 1 ? '15px' : '30px' : '0px'}}
                           />
                         ) : (
                           <KeyboardArrowDownIcon
                             onClick={() => onToggleElement(row)}
                             color="primary"
+                            style={{ marginLeft: row.tabulationLevel ? row.tabulationLevel === 1 ? '15px' : '30px' : '0px'}}
                           />
                         )}
                       </TableCell>
@@ -430,6 +434,7 @@ _viewTable.propTypes = {
   allowRowToggling: PropTypes.bool,
   onToggleElement: PropTypes.func,
   isToggled: PropTypes.func,
+  isVisible: PropTypes.func,
   emptyText: PropTypes.string,
   rowsPerPageText: PropTypes.string,
   checkedElementsCountText: PropTypes.string,
