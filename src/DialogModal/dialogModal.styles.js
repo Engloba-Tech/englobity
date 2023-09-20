@@ -3,8 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useDialogModalStyles = makeStyles(theme => ({
   dialogContent: {
     overflow: 'auto',
-    padding: '24px',
-    overflowX: 'hidden'
+    overflowX: 'hidden',
   },
   actions: {
     padding: '0 24px 24px 24px'
