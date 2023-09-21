@@ -5,14 +5,7 @@ import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Button } from '../Button';
 
-export function ButtonDelete({
-  text,
-  icon,
-  tooltip,
-  disabled,
-  className,
-  ...props
-}) {
+export function ButtonDelete({ text, icon, tooltip, disabled, className, loading, ...props }) {
   const styles = useButtonStyles();
 
   function renderButton() {
@@ -22,10 +15,11 @@ export function ButtonDelete({
         type="button"
         tooltip={tooltip}
         className={clsx(className, styles.button)}
+        loading={loading}
         {...props}
       >
         <div className={styles.wrapperButton}>
-          {icon || <DeleteIcon />}
+          {!loading && (icon || <DeleteIcon />)}
           <p className={styles.textButton}>{text || 'Delete'}</p>
         </div>
       </Button>
@@ -40,7 +34,8 @@ ButtonDelete.propTypes = {
   disabled: PropTypes.bool,
   tooltip: PropTypes.shape({
     title: PropTypes.string,
-    placement: PropTypes.string,
+    placement: PropTypes.string
   }),
   className: PropTypes.string,
+  loading: PropTypes.bool
 };

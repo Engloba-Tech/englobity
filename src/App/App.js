@@ -37,6 +37,7 @@ import {
   warningToaster
 } from '../';
 import { execAwaitedModal } from '../execAwaitedModal';
+import { CustomSwitch } from '../Switch/Switch';
 import { useAppStyles } from './app.styles';
 import { useReceivedInvoiceLineBuildTable } from './useReceivedInvoiceLineBuildTable';
 import { useTogglingElements } from './useTogglingElements';
@@ -48,6 +49,7 @@ export function App() {
   const [openModal, setOpenModal] = useState(false);
   const [inputs, setInputs] = useState(null);
   const [submitted, setSubmitted] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [selectValue, setSelectValue] = useState(null);
   const [notificationsTurnedOn, setNotificationsTurnedOn] = useState(false);
   const formRef = useRef(null);
@@ -253,11 +255,29 @@ export function App() {
               margin: '2rem'
             }}
           >
-            <Button>primary</Button>
-            <Button type="secondary">secondary</Button>
-            <Button disabled>look disabled</Button>
-            <Button tooltip={{ title: 'with tooltip' }}>with tooltip</Button>
+            <CustomSwitch label={'Change loading state'} onChange={() => setLoading(!loading)} />
+            <Button onClick={onAction}>Submit</Button>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              margin: '2rem'
+            }}
+          >
+            <Button loading={loading}>primary</Button>
+            <Button loading={loading} type="secondary">
+              secondary
+            </Button>
+            <Button loading={loading} disabled>
+              look disabled
+            </Button>
+            <Button loading={loading} tooltip={{ title: 'with tooltip' }}>
+              with tooltip
+            </Button>
             <Button
+              loading={loading}
               tooltip={{
                 title: 'with tooltip diferent placement',
                 placement: 'left'
@@ -265,7 +285,9 @@ export function App() {
             >
               with tooltip diferent placement
             </Button>
+            <Button loading={true}>Loading</Button>
             <ButtonMulti
+              loading={loading}
               text="Multi"
               actions={[
                 {
@@ -290,32 +312,33 @@ export function App() {
             <span>
               Normal
               <br />
-              <ButtonAdd />
+              <ButtonAdd loading={loading} />
             </span>
             <span>
               With custom class
               <br />
-              <ButtonAdd className={classes.blue} />
+              <ButtonAdd loading={loading} className={classes.blue} />
             </span>
             <span>
               Disabled
               <br />
-              <ButtonAdd disabled={true} />
+              <ButtonAdd loading={loading} disabled={true} />
             </span>
             <span>
               Custom title and icon
               <br />
-              <ButtonAdd text="Añadir elemento" icon={<AddIcon />} />
+              <ButtonAdd loading={loading} text="Añadir elemento" icon={<AddIcon />} />
             </span>
             <span>
               With tooltip
               <br />
-              <ButtonAdd tooltip={{ title: 'Add element!', placement: 'top' }} />
+              <ButtonAdd loading={loading} tooltip={{ title: 'Add element!', placement: 'top' }} />
             </span>
             <span>
               With action
               <br />
               <ButtonAdd
+                loading={loading}
                 onClick={() => {
                   alert('clicked');
                 }}
@@ -327,6 +350,7 @@ export function App() {
               <ButtonActivateDesactivateNotifications
                 active={notificationsTurnedOn}
                 onClick={() => setNotificationsTurnedOn(!notificationsTurnedOn)}
+                loading={loading}
               />
             </span>
           </div>
@@ -341,32 +365,33 @@ export function App() {
             <span>
               Normal
               <br />
-              <ButtonSave />
+              <ButtonSave loading={loading} />
             </span>
             <span>
               With custom class
               <br />
-              <ButtonSave className={classes.blue} />
+              <ButtonSave loading={loading} className={classes.blue} />
             </span>
             <span>
               Disabled
               <br />
-              <ButtonSave disabled={true} />
+              <ButtonSave loading={loading} disabled={true} />
             </span>
             <span>
               Custom title and icon
               <br />
-              <ButtonSave text="Añadir elemento" icon={<AddIcon />} />
+              <ButtonSave loading={loading} text="Añadir elemento" icon={<AddIcon />} />
             </span>
             <span>
               With tooltip
               <br />
-              <ButtonSave tooltip={{ title: 'Add element!', placement: 'top' }} />
+              <ButtonSave loading={loading} tooltip={{ title: 'Add element!', placement: 'top' }} />
             </span>
             <span>
               With action
               <br />
               <ButtonSave
+                loading={loading}
                 onClick={() => {
                   alert('clicked');
                 }}
@@ -384,32 +409,33 @@ export function App() {
             <span>
               Normal
               <br />
-              <ButtonDelete />
+              <ButtonDelete loading={loading} />
             </span>
             <span>
               With custom class
               <br />
-              <ButtonDelete className={classes.blue} />
+              <ButtonDelete loading={loading} className={classes.blue} />
             </span>
             <span>
               Disabled
               <br />
-              <ButtonDelete disabled={true} />
+              <ButtonDelete loading={loading} disabled={true} />
             </span>
             <span>
               Custom title and icon
               <br />
-              <ButtonDelete text="Añadir elemento" icon={<AddIcon />} />
+              <ButtonDelete text="Añadir elemento" loading={loading} icon={<AddIcon />} />
             </span>
             <span>
               With tooltip
               <br />
-              <ButtonDelete tooltip={{ title: 'Add element!', placement: 'top' }} />
+              <ButtonDelete loading={loading} tooltip={{ title: 'Add element!', placement: 'top' }} />
             </span>
             <span>
               With action
               <br />
               <ButtonDelete
+                loading={loading}
                 onClick={() => {
                   alert('clicked');
                 }}
@@ -533,7 +559,6 @@ export function App() {
                 ]}
               />
             </span>
-            <Button onClick={onAction}>Submit</Button>
           </div>
           <hr />
           <div
@@ -770,7 +795,8 @@ export function App() {
                   children: <CloseIcon />,
                   text: 'Close',
                   type: 'secondary',
-                  onClick: () => setOpenModal(false)
+                  onClick: () => setOpenModal(false),
+                  loading: loading
                 }
               ]}
             >

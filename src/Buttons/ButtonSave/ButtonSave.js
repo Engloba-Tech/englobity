@@ -6,14 +6,7 @@ import React from 'react';
 import { Button } from '../Button';
 import { useButtonStyles } from './buttonSave.styles';
 
-export function ButtonSave({
-  text,
-  icon,
-  tooltip,
-  disabled,
-  className,
-  ...props
-}) {
+export function ButtonSave({ text, icon, tooltip, disabled, className, loading, ...props }) {
   const styles = useButtonStyles();
 
   function renderButton() {
@@ -23,10 +16,11 @@ export function ButtonSave({
         type="button"
         tooltip={tooltip}
         className={clsx(className, styles.buttonSave)}
+        loading={loading}
         {...props}
       >
         <div className={styles.wrapperButton}>
-          {icon || <SaveAltIcon />}
+          {!loading && (icon || <SaveAltIcon />)}
           <p className={styles.textButton}>{text || 'Save'}</p>
         </div>
       </Button>
@@ -41,7 +35,8 @@ ButtonSave.propTypes = {
   disabled: PropTypes.bool,
   tooltip: PropTypes.shape({
     title: PropTypes.string,
-    placement: PropTypes.string,
+    placement: PropTypes.string
   }),
   className: PropTypes.string,
+  loading: PropTypes.bool
 };

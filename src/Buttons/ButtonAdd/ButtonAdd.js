@@ -5,14 +5,7 @@ import clsx from 'clsx';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { Button } from '../Button';
 
-export function ButtonAdd({
-  text,
-  icon,
-  tooltip,
-  disabled,
-  className,
-  ...props
-}) {
+export function ButtonAdd({ text, icon, tooltip, disabled, className, loading, ...props }) {
   const styles = useButtonStyles();
 
   function renderButton() {
@@ -22,10 +15,11 @@ export function ButtonAdd({
         type="button"
         tooltip={tooltip}
         className={clsx(className, styles.buttonAdd)}
+        loading={loading}
         {...props}
       >
         <div className={styles.wrapperButton}>
-          {icon || <AddCircleIcon />}
+          {!loading && (icon || <AddCircleIcon />)}
           <p className={styles.textButton}>{text || 'Add'}</p>
         </div>
       </Button>
@@ -40,7 +34,8 @@ ButtonAdd.propTypes = {
   disabled: PropTypes.bool,
   tooltip: PropTypes.shape({
     title: PropTypes.string,
-    placement: PropTypes.string,
+    placement: PropTypes.string
   }),
   className: PropTypes.string,
+  loading: PropTypes.bool
 };

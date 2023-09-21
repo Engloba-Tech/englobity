@@ -62,7 +62,7 @@ export function SnackAlert({ name, text, type, unmount, position, onClose, durat
                             marginLeft: '1rem'
                           }}
                         >
-                          {`- ${line}`}
+                          &#x2022;{` ${line}`}
                         </span>
                       );
                     })}

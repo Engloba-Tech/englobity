@@ -15,16 +15,20 @@ export function ButtonActivateDesactivateNotifications({
   active,
   className,
   onClick,
-  isLoading,
+  loading,
   ...props
 }) {
   const styles = useButtonStyles();
 
   function renderButton() {
-    return isLoading ? (
-      <Skeleton width={400} height={40} />
-    ) : (
-      <Button className={clsx(className, styles.buttonNotif)} type="button" onClick={onClick} {...props}>
+    return (
+      <Button
+        className={clsx(className, styles.buttonNotif)}
+        type="button"
+        onClick={onClick}
+        loading={loading}
+        {...props}
+      >
         <div className={styles.wrapperButton}>
           {(active && iconEnabled) || iconDisabled}&nbsp;
           <p className={styles.textButton}>{(active && textEnabled) || textDisabled}</p>
@@ -42,5 +46,6 @@ ButtonActivateDesactivateNotifications.propTypes = {
   iconDisabled: PropTypes.node,
   active: PropTypes.bool,
   className: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  loading: PropTypes.bool
 };
