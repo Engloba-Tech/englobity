@@ -1,12 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
-import { useDialogModalStyles } from './dialogModal.styles';
-import { Button } from '../Buttons';
 import CloseIcon from '@material-ui/icons/Close';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Button } from '../Buttons';
+import { useDialogModalStyles } from './dialogModal.styles';
 
-export function DialogModal({ title, description, isOpen, buttons, children, ...rest }) {
+export function DialogModal({
+  title,
+  description,
+  isOpen,
+  buttons,
+  children,
+  showDefaultButtons = true,
+  customButtons,
+  ...rest
+}) {
   const classes = useDialogModalStyles();
+
   return (
     <Dialog open={isOpen} aria-labelledby={title} {...rest}>
       <DialogTitle className={classes.title} id={title}>
@@ -27,25 +37,27 @@ export function DialogModal({ title, description, isOpen, buttons, children, ...
       </DialogContent>
       {buttons && (
         <DialogActions className={classes.actions}>
-          {buttons.map(
-            (button, i) =>
-              button && (
-                <Button
-                  tooltip={{
-                    title: button.text,
-                    placement: 'top'
-                  }}
-                  id={button.id || `dialog_button_${i}`}
-                  key={`dialog_button_${i}`}
-                  {...button}
-                >
-                  <div className={classes.wrapperButton}>
-                    {button.children}
-                    <p className={classes.textButton}>{button.text}</p>
-                  </div>
-                </Button>
-              )
-          )}
+          {customButtons && customButtons}
+          {showDefaultButtons &&
+            buttons.map(
+              (button, i) =>
+                button && (
+                  <Button
+                    tooltip={{
+                      title: button.text,
+                      placement: 'top'
+                    }}
+                    id={button.id || `dialog_button_${i}`}
+                    key={`dialog_button_${i}`}
+                    {...button}
+                  >
+                    <div className={classes.wrapperButton}>
+                      {button.children}
+                      <p className={classes.textButton}>{button.text}</p>
+                    </div>
+                  </Button>
+                )
+            )}
         </DialogActions>
       )}
     </Dialog>
@@ -67,5 +79,7 @@ DialogModal.propTypes = {
       type: PropTypes.string
     })
   ),
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
+  showDefaultButtons: PropTypes.bool,
+  customButtons: PropTypes.element
 };
