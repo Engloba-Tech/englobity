@@ -1,5 +1,6 @@
 import { IconButton, TableCell, TextField, Tooltip } from '@material-ui/core';
 import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
+import clsx from 'clsx';
 import ChipInput from 'material-ui-chip-input';
 import * as moment from 'moment';
 import PropTypes from 'prop-types';
@@ -9,7 +10,7 @@ import shortid from 'shortid';
 import { LocaleDatePicker } from '../../LocaleDatePicker';
 import { Select } from '../../Select';
 // import { FILTER_SUFFIX, FILTER_TYPE } from '../../LocaleDatePicker';
-import { FILTER_TYPE, FILTER_SUFFIX } from './viewTableFilters.const';
+import { FILTER_SUFFIX, FILTER_TYPE } from './viewTableFilters.const';
 import { useViewTableFiltersStyles } from './viewTableFilters.styles';
 
 function FilterSwitch({
@@ -39,7 +40,7 @@ function FilterSwitch({
       return null;
     case FILTER_TYPE.DATE:
       return (
-        <div className={classes.dateWrapper}>
+        <div className={clsx(classes.dateWrapper, cell.className)}>
           <LocaleDatePicker
             todayDatePickerLabel={todayDatePickerLabel}
             clearDatePickerLabel={clearDatePickerLabel}
