@@ -1,14 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {
-  TableCell,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-  Checkbox,
-} from '@material-ui/core';
-import { FILTER_TYPE } from '../ViewTableFilters';
+import { Checkbox, TableCell, TableHead, TableRow, TableSortLabel } from '@material-ui/core';
 import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import { FILTER_TYPE } from '../ViewTableFilters';
 
 export function ViewTableHead(props) {
   const {
@@ -24,15 +17,16 @@ export function ViewTableHead(props) {
     allowRowChecking = true,
     allowRowFilter,
     allowRowToggling,
+    onlyOneCheck
   } = props;
-  const createSortHandler = (property) => (event) => {
+  const createSortHandler = property => event => {
     onRequestSort(event, property);
   };
 
   return (
     <TableHead>
       <TableRow hover={!disableOrderBy}>
-        {allowRowChecking ? (
+        {allowRowChecking && !onlyOneCheck ? (
           <TableCell padding="checkbox">
             <Checkbox
               color="primary"
@@ -47,27 +41,17 @@ export function ViewTableHead(props) {
         ) : (
           <></>
         )}
-        {cells.map((headCell) => (
+        {cells.map(headCell => (
           <TableCell
             className={clsx(
               headCell.filterType === FILTER_TYPE.DATE && classes.cellDate,
               headCell.action && classes.actionCell
             )}
             key={headCell.id}
-            align={
-              headCell.formatAsColumn
-                ? 'center'
-                : headCell.numeric
-                ? 'right'
-                : 'left'
-            }
+            align={headCell.formatAsColumn ? 'center' : headCell.numeric ? 'right' : 'left'}
             style={headCell.style && headCell.style}
             sortDirection={
-              disableOrderBy || headCell.isSortable === false
-                ? false
-                : orderBy === headCell.id
-                ? order
-                : false
+              disableOrderBy || headCell.isSortable === false ? false : orderBy === headCell.id ? order : false
             }
           >
             {headCell.label &&
@@ -82,9 +66,7 @@ export function ViewTableHead(props) {
                   <span className={classes.headCell}>{headCell.label}</span>
                   {orderBy === headCell.id ? (
                     <span className={classes.visuallyHidden}>
-                      {order === 'desc'
-                        ? 'sorted descending'
-                        : 'sorted ascending'}
+                      {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                     </span>
                   ) : (
                     <></>
@@ -93,9 +75,7 @@ export function ViewTableHead(props) {
               ))}
           </TableCell>
         ))}
-        {allowRowFilter && !cells.some((cell) => cell.action) && (
-          <TableCell padding="checkbox" />
-        )}
+        {allowRowFilter && !cells.some(cell => cell.action) && <TableCell padding="checkbox" />}
       </TableRow>
     </TableHead>
   );
@@ -114,4 +94,5 @@ ViewTableHead.propTypes = {
   disableOrderBy: PropTypes.bool,
   allowRowFilter: PropTypes.bool,
   allowRowToggling: PropTypes.bool,
+  onlyOneCheck: PropTypes.bool
 };

@@ -8,7 +8,7 @@ import {
   TableRow,
   Toolbar,
   Tooltip,
-  Typography,
+  Typography
 } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import FilterListIcon from '@material-ui/icons/FilterList';
@@ -68,46 +68,29 @@ export function _viewTable({
   clearDatePickerLabel = 'Clear',
   cancelDatePickerLabel = 'Cancel',
   okDatePickerLabel = 'Accept',
+  onlyOneCheck = false
 }) {
   allowPaging = allowPaging && !allowRowToggling;
   allowRowFilter = allowRowFilter && !allowRowToggling && !onlyRows;
 
-  const {
-    order,
-    orderBy,
-    page,
-    rowsPerPage,
-    changeSort,
-    changePage,
-    changeRows,
-    changeFilter,
-    resetFilter,
-  } = usePagination(
-    cells,
-    onFetchData,
-    defaultOrderBy || (disableOrderBy ? '' : cells[0].id)
-  );
+  const { order, orderBy, page, rowsPerPage, changeSort, changePage, changeRows, changeFilter, resetFilter } =
+    usePagination(cells, onFetchData, defaultOrderBy || (disableOrderBy ? '' : cells[0].id));
 
   const classes = useViewTableStyles();
 
   function getVisibleRows(rows) {
     if (allowPaging && serverSidePaging) return rows;
 
-    let sortedRows = disableOrderBy
-      ? rows
-      : stableSort(rows, getComparator(order, orderBy));
+    let sortedRows = disableOrderBy ? rows : stableSort(rows, getComparator(order, orderBy));
     if (allowPaging) {
-      sortedRows = sortedRows.slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage
-      );
+      sortedRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
     }
     return sortedRows;
   }
 
   const totalRowCount = serverSidePaging ? totalRows : rows.length;
 
-  const ableSelectRow = (element) => {
+  const ableSelectRow = element => {
     if (checkRowWhen) {
       return !element.isAccordionHeader && checkRowWhen(element);
     }
@@ -124,9 +107,9 @@ export function _viewTable({
 
   const renderAction = (action, row) => {
     return (
-      (action.component && (
-        <Tooltip title={action.title}>{action.component}</Tooltip>
-      )) || <TableCell key={shortid.generate()} padding="checkbox"></TableCell>
+      (action.component && <Tooltip title={action.title}>{action.component}</Tooltip>) || (
+        <TableCell key={shortid.generate()} padding="checkbox"></TableCell>
+      )
     );
   };
 
@@ -143,8 +126,8 @@ export function _viewTable({
               orderBy={orderBy}
               disableOrderBy={disableOrderBy}
               onCheckAllClick={() =>
-                rows.some((row) => row.canBeDeleted != null)
-                  ? onCheckAllElements(rows?.filter((row) => row.canBeDeleted))
+                rows.some(row => row.canBeDeleted != null)
+                  ? onCheckAllElements(rows?.filter(row => row.canBeDeleted))
                   : onCheckAllElements(rows)
               }
               onRequestSort={changeSort}
@@ -152,6 +135,7 @@ export function _viewTable({
               allowRowChecking={allowRowChecking}
               allowRowFilter={allowRowFilter}
               allowRowToggling={allowRowToggling}
+              onlyOneCheck={onlyOneCheck}
             />
           )}
           {/* Tr can't appear as a child of table BUT if thead is used, when scrolling down
@@ -182,10 +166,7 @@ export function _viewTable({
           {!rows.length ? (
             <TableBody>
               <TableRow>
-                <TableCell
-                  style={{ borderBottom: 'none', background: 'white' }}
-                  colSpan="100%"
-                >
+                <TableCell style={{ borderBottom: 'none', background: 'white' }} colSpan="100%">
                   <InfoSummary className={classes.summary} text={emptyText} />
                 </TableCell>
               </TableRow>
@@ -194,12 +175,12 @@ export function _viewTable({
             <TableBody>
               {getVisibleRows(rows).map((row, index) => {
                 const isItemChecked = isChecked && isChecked(row);
-                const isItemVisible = (isVisible && isVisible(row)) ||
-                  ((allowRowToggling && isToggled(row)) ||
+                const isItemVisible =
+                  (isVisible && isVisible(row)) ||
+                  (allowRowToggling && isToggled(row)) ||
                   // row.isAccordionHeader ||
-                  !allowRowToggling);
-                const isItemToggled =
-                  (allowRowToggling && isToggled(row)) || !allowRowToggling;
+                  !allowRowToggling;
+                const isItemToggled = (allowRowToggling && isToggled(row)) || !allowRowToggling;
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
@@ -210,30 +191,21 @@ export function _viewTable({
                     aria-checked={isItemChecked}
                     tabIndex={-1}
                     key={shortid.generate()}
-                    onClick={() =>
-                      row.isAccordionHeader ? onToggleElement(row) : undefined
-                    }
+                    onClick={() => (row.isAccordionHeader ? onToggleElement(row) : undefined)}
                     selected={isItemChecked}
                     style={{
                       height: 53,
                       cursor: row.isAccordionHeader && 'pointer',
-                      display: (isItemVisible && 'table-row') || 'none',
+                      display: (isItemVisible && 'table-row') || 'none'
                     }}
                   >
-                    {!allowRowChecking &&
-                      !row.isAccordionHeader &&
-                      allowRowToggling && (
-                        <TableCell padding="checkbox"></TableCell>
-                      )}
+                    {!allowRowChecking && !row.isAccordionHeader && allowRowToggling && (
+                      <TableCell padding="checkbox"></TableCell>
+                    )}
 
                     {allowRowChecking && !row.isAccordionHeader && (
                       <TableCell padding="checkbox">
-                        <Tooltip
-                          title={
-                            !ableSelectRow(row) ? checkRowDisabledReason : ''
-                          }
-                          placement={'top'}
-                        >
+                        <Tooltip title={!ableSelectRow(row) ? checkRowDisabledReason : ''} placement={'top'}>
                           <div>
                             <Checkbox
                               onClick={() => onCheckElement(row)}
@@ -241,7 +213,9 @@ export function _viewTable({
                               disabled={!ableSelectRow(row)}
                               checked={isItemChecked}
                               inputProps={{ 'aria-labelledby': labelId }}
-                              style={{ marginLeft: row.tabulationLevel ? row.tabulationLevel === 1 ? '15px' : '30px' : '0px'}}
+                              style={{
+                                marginLeft: row.tabulationLevel ? (row.tabulationLevel === 1 ? '15px' : '30px') : '0px'
+                              }}
                             />
                           </div>
                         </Tooltip>
@@ -254,37 +228,34 @@ export function _viewTable({
                           <ChevronRightIcon
                             onClick={() => onToggleElement(row)}
                             color="primary"
-                            style={{ marginLeft: row.tabulationLevel ? row.tabulationLevel === 1 ? '15px' : '30px' : '0px'}}
+                            style={{
+                              marginLeft: row.tabulationLevel ? (row.tabulationLevel === 1 ? '15px' : '30px') : '0px'
+                            }}
                           />
                         ) : (
                           <KeyboardArrowDownIcon
                             onClick={() => onToggleElement(row)}
                             color="primary"
-                            style={{ marginLeft: row.tabulationLevel ? row.tabulationLevel === 1 ? '15px' : '30px' : '0px'}}
+                            style={{
+                              marginLeft: row.tabulationLevel ? (row.tabulationLevel === 1 ? '15px' : '30px') : '0px'
+                            }}
                           />
                         )}
                       </TableCell>
                     )}
 
-                    {cells.map((cell) => {
+                    {cells.map(cell => {
                       return (
                         <TableCell
                           key={shortid.generate()}
-                          align={
-                            cell.numeric
-                              ? 'right'
-                              : cell.formatAsColumn
-                              ? 'center'
-                              : 'left'
-                          }
+                          align={cell.numeric ? 'right' : cell.formatAsColumn ? 'center' : 'left'}
                           width={cell.formatAsColumn ? '20%' : ''}
                           style={cell.style && cell.style}
                           className={`${cell.ellipsis && classes.ellipsis} ${
                             row.isAccordionHeader && classes.isAccordionHeader
-                          } ${
-                            Boolean(cell.action && !cell.formatAsColumn) &&
-                            classes.actionCell
-                          } ${cell.numeric && classes.numeric}`}
+                          } ${Boolean(cell.action && !cell.formatAsColumn) && classes.actionCell} ${
+                            cell.numeric && classes.numeric
+                          }`}
                         >
                           {cell.additionalProperty &&
                             cell.additionalProperty.beforeParent &&
@@ -293,19 +264,11 @@ export function _viewTable({
                           {skeletonHelper.isSkeletonLoading(row[cell.id]) ? (
                             <Skeleton />
                           ) : cell.ellipsis && row[cell.id]?.length > 20 ? (
-                            <Tooltip
-                              classes={{ tooltip: classes.tooltip }}
-                              title={row[cell.id]}
-                              placement="top"
-                            >
+                            <Tooltip classes={{ tooltip: classes.tooltip }} title={row[cell.id]} placement="top">
                               <span>{row[cell.id]}</span>
                             </Tooltip>
                           ) : cell.rating ? (
-                            <Rating
-                              value={row[cell.id]}
-                              precision={0.5}
-                              readOnly
-                            />
+                            <Rating value={row[cell.id]} precision={0.5} readOnly />
                           ) : typeof row[cell.id] === 'boolean' ? (
                             // TODO: Smell... remove warning property and refactor with custom control property
                             cell.warning ? (
@@ -314,7 +277,7 @@ export function _viewTable({
                                   <WarningRounded
                                     style={{
                                       color: color.toast.warn,
-                                      fontSize: 30,
+                                      fontSize: 30
                                     }}
                                   />
                                 </Tooltip>
@@ -323,17 +286,13 @@ export function _viewTable({
                               <BooleanIcon
                                 condition={row[cell.id]}
                                 trueText={cell.tooltip && cell.tooltip.trueText}
-                                falseText={
-                                  cell.tooltip && cell.tooltip.falseText
-                                }
+                                falseText={cell.tooltip && cell.tooltip.falseText}
                                 tooltipClasses={{ tooltip: classes.tooltip }}
                                 showOnlyCheck={cell.showOnlyCheck}
                               />
                             )
                           ) : cell.additionalProperty ? (
-                            <div className={classes.verticalAlign}>
-                              {row[cell.id]}
-                            </div>
+                            <div className={classes.verticalAlign}>{row[cell.id]}</div>
                           ) : cell.action ? (
                             renderAction(row[cell.id], row)
                           ) : (
@@ -346,9 +305,7 @@ export function _viewTable({
                         </TableCell>
                       );
                     })}
-                    {allowRowFilter && !cells.some((cell) => cell.action) && (
-                      <TableCell />
-                    )}
+                    {allowRowFilter && !cells.some(cell => cell.action) && <TableCell />}
                   </TableRow>
                 );
               })}
@@ -370,10 +327,7 @@ export function _viewTable({
       <div className={classes.footerWrapper}>
         <div className={classes.wrapper}>
           {isAnyChecked && (
-            <Toolbar
-              disableGutters
-              className={`${classes.root} ${classes.selected} ${classes.highlight}`}
-            >
+            <Toolbar disableGutters className={`${classes.root} ${classes.selected} ${classes.highlight}`}>
               <Typography color="inherit" variant="subtitle1" component="div">
                 {checkedElementsCount} {checkedElementsCountText}
               </Typography>
@@ -389,7 +343,7 @@ export function _viewTable({
               page={page}
               SelectProps={{
                 inputProps: { 'aria-label': 'rows per page' },
-                native: true,
+                native: true
               }}
               onPageChange={changePage}
               onRowsPerPageChange={changeRows}
@@ -398,9 +352,7 @@ export function _viewTable({
               ActionsComponent={ViewTableFooter}
               labelRowsPerPage={rowsPerPageText}
               labelDisplayedRows={({ from, to, count }) =>
-                `${from}-${
-                  to === -1 ? count : to
-                } ${displayedRowsText} ${count}`
+                `${from}-${to === -1 ? count : to} ${displayedRowsText} ${count}`
               }
             />
           )}
@@ -447,5 +399,5 @@ _viewTable.propTypes = {
   cancelDatePickerLabel: PropTypes.string,
   okDatePickerLabel: PropTypes.string,
   dateFromText: PropTypes.string,
-  dateUntilText: PropTypes.string,
+  dateUntilText: PropTypes.string
 };
