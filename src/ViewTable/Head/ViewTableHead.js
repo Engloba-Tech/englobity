@@ -1,3 +1,4 @@
+import React from 'react';
 import { Checkbox, TableCell, TableHead, TableRow, TableSortLabel } from '@material-ui/core';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
