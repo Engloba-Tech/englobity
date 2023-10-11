@@ -1,7 +1,7 @@
-import React from 'react';
 import { Checkbox, TableCell, TableHead, TableRow, TableSortLabel } from '@material-ui/core';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { FILTER_TYPE } from '../ViewTableFilters';
 
 export function ViewTableHead(props) {
@@ -27,15 +27,17 @@ export function ViewTableHead(props) {
   return (
     <TableHead>
       <TableRow hover={!disableOrderBy}>
-        {allowRowChecking && !onlyOneCheck ? (
+        {allowRowChecking ? (
           <TableCell padding="checkbox">
-            <Checkbox
-              color="primary"
-              indeterminate={numChecked > 0 && numChecked < rowCount}
-              checked={rowCount > 0 && numChecked === rowCount}
-              onChange={onCheckAllClick}
-              inputProps={{ 'aria-label': 'select all desserts' }}
-            />
+            {!onlyOneCheck && (
+              <Checkbox
+                color="primary"
+                indeterminate={numChecked > 0 && numChecked < rowCount}
+                checked={rowCount > 0 && numChecked === rowCount}
+                onChange={onCheckAllClick}
+                inputProps={{ 'aria-label': 'select all desserts' }}
+              />
+            )}
           </TableCell>
         ) : allowRowToggling ? (
           <TableCell padding="checkbox"></TableCell>
