@@ -1,5 +1,5 @@
 import { Skeleton } from '@material-ui/lab';
-import { KeyboardDatePicker, KeyboardDateTimePicker } from '@material-ui/pickers';
+import { KeyboardDatePicker, KeyboardDateTimePicker, KeyboardTimePicker } from '@material-ui/pickers';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
@@ -15,6 +15,7 @@ export function CustomDateTimePicker({
   onChange,
   isLoading,
   skeletonHeight = 48,
+  onlyTime,
   ...props
 }) {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -68,6 +69,13 @@ export function CustomDateTimePicker({
           minDate={undefined}
           maxDate={undefined}
         />
+      ) : onlyTime ? (
+        <KeyboardTimePicker
+          {...params}
+          format="HH:mm"
+          onOpen={() => setIsCalendarOpen(true)}
+          onClose={() => setIsCalendarOpen(false)}
+        />
       ) : (
         <KeyboardDatePicker
           {...params}
@@ -90,5 +98,6 @@ CustomDateTimePicker.propTypes = {
   onChange: PropTypes.func,
   inputClassName: PropTypes.string,
   isLoading: PropTypes.bool,
-  skeletonHeight: PropTypes.number
+  skeletonHeight: PropTypes.number,
+  onlyTime: PropTypes.bool
 };
