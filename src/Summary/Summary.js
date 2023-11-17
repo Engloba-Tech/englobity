@@ -49,7 +49,7 @@ export function InfoSummary({ text, detail, className }) {
 
 Summary.propTypes = {
   text: PropTypes.string,
-  detail: PropTypes.string,
+  detail: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   className: PropTypes.string,
   seeMoreText: PropTypes.string,
   severity: PropTypes.oneOf(['error', 'warning', 'info', 'success']).isRequired

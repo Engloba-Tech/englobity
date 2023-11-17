@@ -45,7 +45,9 @@ export function CustomSelect({
             displayEmpty={displayEmpty}
             error={error}
             {...props}
-            label={title}
+            label={''}
+            // If the title is too large this creates height issues,
+            // furhermore this is not showing, we use the other label above
           >
             {elements.map(element => (
               <MenuItem key={shortid.generate()} value={element.value}>

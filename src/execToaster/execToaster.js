@@ -160,5 +160,5 @@ SnackAlert.propTypes = {
   position: PropTypes.object,
   unmount: PropTypes.func,
   duration: PropTypes.number,
-  className: PropTypes.object
+  className: PropTypes.string
 };

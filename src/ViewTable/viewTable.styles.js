@@ -41,12 +41,12 @@ export const useViewTableStyles = makeStyles(theme => ({
         fontFamily: 'Montserrat'
       },
       '& .MuiTableRow-root': {
-        '&:hover':{
+        '&:hover': {
           background: `${theme.palette.primary.main} !important`,
           '& .MuiTableCell-root': {
             color: 'white'
           },
-          '& .MuiIconButton-label':{
+          '& .MuiIconButton-label': {
             color: 'white !important'
           },
           '& .MuiSvgIcon-root': {
@@ -54,7 +54,7 @@ export const useViewTableStyles = makeStyles(theme => ({
           },
           '& .MuiSwitch-colorPrimary.Mui-checked + .MuiSwitch-track': {
             backgroundColor: theme.palette.primary.light
-          },
+          }
         },
         '&:nth-child(odd)': {
           backgroundColor: theme.palette.primary.lightest
@@ -76,15 +76,15 @@ export const useViewTableStyles = makeStyles(theme => ({
     '& .MuiIconButton-label': {
       color: theme.palette.primary.main
     },
-    '& .MuiRating-decimal':{
+    '& .MuiRating-decimal': {
       '& .MuiSvgIcon-root': {
         color: 'inherit !important'
-      },
+      }
     },
-    '& .Mui-disabled':{
+    '& .Mui-disabled': {
       '& .MuiSvgIcon-root': {
-        opacity: 0.3,
-      },
+        opacity: 0.3
+      }
     },
     '& .MuiSvgIcon-root': {
       color: theme.palette.primary.main,
@@ -191,12 +191,12 @@ export const useViewTableStyles = makeStyles(theme => ({
     '& th': {
       '&.MuiTableCell-root': {
         paddingTop: 0
-      },
+      }
     },
     '& td': {
       '&.MuiTableCell-root': {
         paddingTop: 0
-      },
+      }
     },
     '& .MuiTableCell-root': {
       borderBottom: `1px solid ${theme.palette.primary.light}`

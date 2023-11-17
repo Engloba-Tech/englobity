@@ -102,7 +102,7 @@ export function CustomTabs({
                             wrapper: classes.deleteIconWrapper,
                             labelContainer: classes.deleteIconContainer
                           }
-                        : ''
+                        : {}
                     }
                     className={`${classes.tab} ${tab.withDot ? classes.withDot : ''} ${
                       isDynamic ? classes.dynamicTab : classes.flexTab

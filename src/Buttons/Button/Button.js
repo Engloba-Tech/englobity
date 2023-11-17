@@ -41,7 +41,7 @@ export function CustomButton({
 }
 
 CustomButton.propTypes = {
-  type: PropTypes.oneOf(['primary', 'secondary']).isRequired,
+  type: PropTypes.oneOf(['primary', 'secondary', 'button']),
   isSubmit: PropTypes.bool,
   disabled: PropTypes.bool,
   tooltip: PropTypes.shape({

@@ -8,6 +8,7 @@ import React, { useRef, useState } from 'react';
 
 import {
   AlertIcon,
+  AsyncInputAutocomplete,
   Avatar,
   BooleanIcon,
   Button,
@@ -25,6 +26,7 @@ import {
   InfoIcon,
   InfoSummary,
   infoToaster,
+  Input,
   LocaleDatePicker,
   NotificationsButton,
   Select,
@@ -41,12 +43,14 @@ import { CustomSwitch } from '../Switch/Switch';
 import { useAppStyles } from './app.styles';
 import { useReceivedInvoiceLineBuildTable } from './useReceivedInvoiceLineBuildTable';
 import { useTogglingElements } from './useTogglingElements';
+import { Grid } from '@material-ui/core';
 
 require('babel-polyfill');
 
 export function App() {
   const classes = useAppStyles();
   const [openModal, setOpenModal] = useState(false);
+  const [openModalWithChildren, setOpenModalWithChildren] = useState(false);
   const [inputs, setInputs] = useState(null);
   const [submitted, setSubmitted] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -217,13 +221,125 @@ export function App() {
       description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0025 ',
       isTaxExempt: false,
       anyDate: '12/12/2022'
+    },
+    {
+      id: '9eb5e5b5-abc9-4eb7-a5ec-579499ca8c42 asdas',
+      externalReference: '965F327C-3064-4B6C-B84B-84B244CF4AAD',
+      districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+      quantity: 1,
+      amount: 289,
+      description:
+        'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 | PACK 1:  Retirada de enseres, Limpieza, Desenganche de suministros, Fotos del antes y del después y  Descerraje y cambio de bombín.',
+      isTaxExempt: true,
+      additional: true,
+      anyDate: '12/02/2023',
+      otro: <BooleanIcon condition={true}></BooleanIcon>
+    },
+    {
+      id: '80b96bde-57a7-44fd-a66f-604f5223bd54 sad',
+      externalReference: '860EDC2E-8EEC-4F6C-8682-D52C088C6AAE',
+      districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+      quantity: 1,
+      amount: 391,
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0025 | Pintura vivienda hasta 80 m2',
+      isTaxExempt: false,
+      anyDate: '12/12/2022'
+    },
+    {
+      id: '9eb5e5b5a5ec-579499ca8c42 asa',
+      externalReference: '965F327C-3064-4B6C-B84B-84B244CF4AAD',
+      districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+      quantity: 1,
+      amount: 289,
+      description:
+        'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 | PACK 1:  Retirada de enseres, Limpieza, Desenganche de suministros, Fotos del antes y del después y  Descerraje y cambio de bombín.',
+      isTaxExempt: true,
+      additional: true,
+      anyDate: '12/02/2023',
+      otro: <BooleanIcon condition={true}></BooleanIcon>
+    },
+    {
+      id: '80b96bd4fd-a66f-604f5223bd54df',
+      externalReference: '860EDC2E-8EEC-4F6C-8682-D52C088C6AAE',
+      districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+      quantity: 1,
+      amount: 391,
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0025 | Pintura vivienda hasta 80 m2',
+      isTaxExempt: false,
+      anyDate: '12/12/2022'
+    },
+    {
+      id: '9eb5e5b5-abc9-499ca8c421c',
+      externalReference: '965F327C-3064-4B6C-B84B-84B244CF4AAD',
+      districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+      quantity: 1,
+      amount: 289,
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 ',
+      isTaxExempt: true,
+      additional: true,
+      anyDate: '12/02/2023',
+      otro: <BooleanIcon condition={true}></BooleanIcon>
+    },
+    {
+      id: '80b96bd7-44fd-a64f5223bd5451',
+      externalReference: '860EDC2E-8EEC-4F6C-8682-D52C088C6AAE',
+      districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+      quantity: 1,
+      amount: 391,
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0025 ',
+      isTaxExempt: false,
+      anyDate: '12/12/2022'
+    },
+    {
+      id: '9eb5e5b5-abc9-4eb211',
+      externalReference: '965F327C-3064-4B6C-B84B-84B244CF4AAD',
+      districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+      quantity: 1,
+      amount: 289,
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 ',
+      isTaxExempt: true,
+      additional: true,
+      anyDate: '12/02/2023',
+      otro: <BooleanIcon condition={true}></BooleanIcon>
+    },
+    {
+      id: 'f-604f5223bd54',
+      externalReference: '860EDC2E-8EEC-4F6C-8682-D52C088C6AAE',
+      districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+      quantity: 1,
+      amount: 391,
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0025 ',
+      isTaxExempt: false,
+      anyDate: '12/12/2022'
+    },
+    {
+      id: '9eb5e5b5-abc9-4eb7-a12c-579499ca8c42',
+      externalReference: '965F327C-3064-4B6C-B84B-84B244CF4AAD',
+      districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+      quantity: 1,
+      amount: 289,
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0001 ',
+      isTaxExempt: true,
+      additional: true,
+      anyDate: '12/02/2023',
+      otro: <BooleanIcon condition={true}></BooleanIcon>
+    },
+    {
+      id: '80b96bde-57a7-44fd-a66f-604f5223bd84',
+      externalReference: '860EDC2E-8EEC-4F6C-8682-D52C088C6AAE',
+      districtId: '727558c5-7999-4b76-946e-06b6d44af4f3',
+      quantity: 1,
+      amount: 391,
+      description: 'OK_AD-0001/2022 | CAS-1 | OKUANT_0025 ',
+      isTaxExempt: false,
+      anyDate: '12/12/2022'
     }
   ]);
 
   const { rows, headCells, getReceivedInvoiceLines } = useReceivedInvoiceLineBuildTable(
-    data.current,
+    data?.current,
     () => console.log('lol'),
-    true
+    false
   );
 
   const { onToggleElement, isToggled } = useTogglingElements({
@@ -778,30 +894,60 @@ export function App() {
               This opens an awaited dialog
             </Button>
 
+            <Button onClick={() => setOpenModalWithChildren(true)}>This opens a dialog with React.Node child</Button>
+
             <DialogModal
+              maxWidth={'xl'}
               fullWidth
-              title={'Modal'}
-              description={''}
-              isOpen={openModal}
-              onClose={() => setOpenModal(false)}
+              title={'Modal With children'}
+              isOpen={openModalWithChildren}
+              onClose={() => setOpenModalWithChildren(false)}
               buttons={[
                 {
                   children: <CloseIcon />,
                   text: 'Close',
                   type: 'secondary',
-                  onClick: () => setOpenModal(false)
+                  onClick: () => setOpenModalWithChildren(false)
                 },
                 {
                   children: <CloseIcon />,
                   text: 'Close',
                   type: 'secondary',
-                  onClick: () => setOpenModal(false),
+                  onClick: () => setOpenModalWithChildren(false),
                   loading: loading
                 }
               ]}
             >
-              <SuccessSummary text={'This is a success summary'} />
-              <p>And this the content</p>
+              <Form style={{ marginBottom: '1rem' }}>
+                <Grid container spacing={3}>
+                  <Grid item xs={6}>
+                    <AsyncInputAutocomplete label={'AsyncInput'} />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Input />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Select
+                      title={'Mi select test es muy largo xD'}
+                      value={selectValue}
+                      elements={[
+                        { value: 1, name: '1' },
+                        { value: 2, name: '2' },
+                        { value: 3, name: '3' }
+                      ]}
+                      submitted={submitted}
+                      // displayEmpty
+                      required
+                      error={selectValue < 1 && submitted}
+                      errorMessage={'Error Message'}
+                      onChange={e => {
+                        setSubmitted(false);
+                        setSelectValue(e.target?.value);
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </Form>
             </DialogModal>
           </div>
           <div
@@ -812,11 +958,11 @@ export function App() {
             <ViewTable
               rows={rows}
               cells={headCells}
-              allowRowToggling={true}
               defaultOrderBy={{ property: 'amount', direction: 'asc' }}
               disableOrderBy={true}
-              isToggled={isToggled}
-              onToggleElement={onToggleElement}
+              // allowRowToggling={true}
+              // isToggled={isToggled}
+              // onToggleElement={onToggleElement}
               onFetchData={getReceivedInvoiceLines}
               checkRowWhen={element => element.canBeDeleted}
               checkRowDisabledReason={'disabled'}
