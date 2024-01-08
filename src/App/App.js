@@ -346,10 +346,45 @@ export function App() {
     toggleProperty: 'externalReference'
   });
 
+  const filmsOptions = [
+    {
+      id: 1,
+      name: 'The Shawshank Redemption'
+    },
+    {
+      id: 2,
+      name: 'The Godfather'
+    },
+    {
+      id: 3,
+      name: 'The Godfather: Part II'
+    }
+  ];
+
   return (
     <>
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <Form elementRef={formRef} onSubmit={onAction} autoComplete="off">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              margin: '2rem'
+            }}
+          >
+            <AsyncInputAutocomplete
+              // onChange={(e, element) => handleAddDocumentType(element)}
+              style={{ width: '300px' }}
+              onChange={(e, element) => null}
+              label={'Select or type a film'}
+              value={{ id: inputs?.documentTypeId, name: inputs?.documentType }}
+              defaultInputValue={inputs?.documentType}
+              // icon={<SearchIcon />}
+              getOptionLabel={option => option.name}
+              getOptionSelected={(option, value) => option.id === value.id}
+              requestAction={queryString => filmsOptions}
+            />
+          </div>
           <div
             style={{
               display: 'flex',
