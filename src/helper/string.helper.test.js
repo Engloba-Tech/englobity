@@ -1,33 +1,33 @@
 import { stringHelper } from './string.helper';
 
 describe('string helper should', () => {
-	it('capitalize first leter', () => {
-		const stringToCapitalize = 'hola que tal';
-		const result = 'Hola que tal';
+  it('capitalize first leter', () => {
+    const stringToCapitalize = 'hola que tal';
+    const result = 'Hola que tal';
 
-		const capitalized = stringHelper.capitalizeFirstLetter(stringToCapitalize);
+    const capitalized = stringHelper.capitalizeFirstLetter(stringToCapitalize);
 
-		expect(capitalized).toEqual(result);
-	});
+    expect(capitalized).toEqual(result);
+  });
 
-	it('normalize quotes string', () => {
-		const stringToCapitalize = '""workOrders:validations.duplicated""';
-		const result = 'workOrders:validations.duplicated';
+  it('normalize quotes string', () => {
+    const stringToCapitalize = '""workOrders:validations.duplicated""';
+    const result = 'workOrders:validations.duplicated';
 
-		const normalize = stringHelper.normalizeQuotes(stringToCapitalize);
+    const normalize = stringHelper.normalizeQuotes(stringToCapitalize);
 
-		expect(normalize).toEqual(result);
-	});
+    expect(normalize).toEqual(result);
+  });
 
-	it('split string from key', () => {
-		const string = 'user@gmail.com';
+  it('split string from key', () => {
+    const string = 'user@gmail.com';
 
-		expect(stringHelper.splitFrom('@', string)).toBe('user');
-	});
+    expect(stringHelper.splitFrom('@', string)).toBe('user');
+  });
 
-	it('trow an error if is not a string', () => {
-		expect(() => stringHelper.capitalizeFirstLetter(2)).toThrowError(
-			'string required, number found'
-		);
-	});
+  it('trow an error if is not a string', () => {
+    expect(() => stringHelper.capitalizeFirstLetter(2)).toThrowError(
+      'Englobity error ocurred formatting a string: string required, number found'
+    );
+  });
 });

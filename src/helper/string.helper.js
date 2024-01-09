@@ -2,7 +2,7 @@ function validateBeforeExecute(string, cb) {
 	if (typeof string === 'string') {
 		return cb();
 	} else {
-		throw new Error(`string required, ${typeof string} found`);
+		throw new Error(`Englobity error ocurred formatting a string: string required, ${typeof string} found`);
 	}
 }
 
