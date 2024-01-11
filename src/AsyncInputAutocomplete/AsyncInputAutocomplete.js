@@ -27,6 +27,7 @@ export function AsyncInputAutocomplete({
   isLoading,
   onClick,
   skeletonHeight = 48,
+  composed, // <-- If the input is painting the option with more text, like stars or something else, we need this prop to avoid bugs
   ...props
 }) {
   const { isOpen, handleClose, handleOpen } = useHandleOpen(false);
@@ -88,15 +89,17 @@ export function AsyncInputAutocomplete({
   }
 
   function handleSelectOption(option) {
-    setTimeout(() => {
-      hasChosenAnOption.current = true;
-      setInternalValue(option);
-      setInput(option.name);
-    }, 100);
+    if (!multiple && !composed) {
+      setTimeout(() => {
+        hasChosenAnOption.current = true;
+        setInternalValue(option);
+        setInput(option.name);
+      }, 100);
+    }
   }
 
   function onBlur(e) {
-    if (!hasChosenAnOption.current) {
+    if (!multiple && !composed && !hasChosenAnOption.current) {
       setInput('');
       setInternalValue({});
     }
@@ -200,5 +203,6 @@ AsyncInputAutocomplete.propTypes = {
   required: PropTypes.bool,
   validators: PropTypes.arrayOf(PropTypes.string),
   errorMessages: PropTypes.arrayOf(PropTypes.string),
-  skeletonHeight: PropTypes.number
+  skeletonHeight: PropTypes.number,
+  composed: PropTypes.bool
 };
