@@ -160,7 +160,8 @@ export function AsyncInputAutocomplete({
           loading={startLoading}
           popupIcon={<ArrowDropDownIcon onClick={onClickOpenButton} />}
           // Agrega un evento onClick al contenedor de las opciones
-          renderOption={option => <div onClick={() => handleSelectOption(option)}>{option.name}</div>}
+          {...(!composed ? { renderOption: option => <div onClick={() => handleSelectOption(option)}>{option.name}</div> } : {})}
+          // renderOption={option => <div onClick={() => handleSelectOption(option)}>{option.name}</div>}
           renderInput={params => (
             <Input
               {...params}
