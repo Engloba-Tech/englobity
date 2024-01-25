@@ -156,7 +156,7 @@ export function AsyncInputAutocomplete({
           inputValue={input || ''}
           onChange={multiple ? onChange : onChangeValueSingle}
           onBlur={onBlur}
-          onClick={() => (onClick ? onClick() : null)}
+          onClick={onClick ?? null}
           loading={startLoading}
           popupIcon={<ArrowDropDownIcon onClick={onClickOpenButton} />}
           // Agrega un evento onClick al contenedor de las opciones
@@ -167,7 +167,7 @@ export function AsyncInputAutocomplete({
               {...params}
               icon={icon}
               label={label}
-              onClick={() => (onClick ? onClick() : null)}
+              onClick={onClick ?? null}
               value={input || ''}
               required={required}
               validators={validators}
@@ -192,7 +192,7 @@ export function AsyncInputAutocomplete({
 AsyncInputAutocomplete.propTypes = {
   requestAction: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   icon: PropTypes.element,
   label: PropTypes.string,
   multiple: PropTypes.bool,

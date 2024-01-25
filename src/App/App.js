@@ -353,7 +353,8 @@ export function App() {
     },
     {
       id: 2,
-      name: 'The Godfather'
+      name: 'The Godfather',
+      coolerName: 'El Padrino'
     },
     {
       id: 3,
@@ -380,7 +381,7 @@ export function App() {
               value={{ id: inputs?.documentTypeId, name: inputs?.documentType }}
               defaultInputValue={inputs?.documentType}
               // icon={<SearchIcon />}
-              getOptionLabel={option => option.name}
+              getOptionLabel={option => option.coolerName ?? option.name}
               getOptionSelected={(option, value) => option.id === value.id}
               requestAction={queryString => filmsOptions}
             />
