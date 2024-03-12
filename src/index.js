@@ -6,6 +6,7 @@ export * from './ChipInput';
 export * from './DateTimePicker';
 export * from './DialogModal';
 export * from './Dropzone';
+export * from './DropzoneTree';
 export * from './Form';
 export * from './Input';
 export * from './Select';
