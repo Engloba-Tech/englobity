@@ -56,7 +56,7 @@ export function Dropzone({
   );
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/png',
+    accept,
     disabled,
     onDrop: handleOnDrop,
     onDragEnter: handleDragEnter,

@@ -5,8 +5,10 @@ import { useTheme } from '@material-ui/core/styles';
 import { Skeleton, TreeItem, TreeView } from '@material-ui/lab';
 import { Button, Chip, FormHelperText, Tooltip, Typography } from '@material-ui/core';
 import { ChevronRight, ExpandMore, FileCopy } from '@material-ui/icons';
+import * as Icons from '@material-ui/icons';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { useDropzoneTreeStyles } from './dropzoneTree.styles';
+import FileTypeIcon from './FileTypeIcon';
 
 export function DropzoneTree({
   onDrop,
@@ -42,7 +44,7 @@ export function DropzoneTree({
         if(segment !== '' || subIndex > 0)
         {
           if (currentNode[segment] === undefined) {
-            currentNode[segment] = subIndex === a.length - 1 ? {index} : {};
+            currentNode[segment] = subIndex === a.length - 1 ? {index, type: segment.split('.')[1]} : {};
           }
           
           currentNode = currentNode[segment];
@@ -100,7 +102,7 @@ export function DropzoneTree({
           <Chip
               style={{ justifyContent: 'left' }}
               disabled={disabled}
-              icon={<FileCopy />}
+              icon={<FileTypeIcon fileType={item[key].type} />}
               label={key}
               onDelete={() => handleDeleteFile(newId, item[key].index)}
               className={classes.chip}
