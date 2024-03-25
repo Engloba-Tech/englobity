@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useDropzoneStyles = makeStyles(theme => ({
+export const useDropzoneTreeStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     listStyle: 'none',

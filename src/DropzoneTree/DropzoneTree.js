@@ -2,13 +2,15 @@ import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDropzone } from 'react-dropzone';
 import { useTheme } from '@material-ui/core/styles';
-import { Skeleton } from '@material-ui/lab';
+import { Skeleton, TreeItem, TreeView } from '@material-ui/lab';
 import { Button, Chip, FormHelperText, Tooltip, Typography } from '@material-ui/core';
-import { FileCopy } from '@material-ui/icons';
+import { ChevronRight, ExpandMore, FileCopy } from '@material-ui/icons';
+import * as Icons from '@material-ui/icons';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { useDropzoneStyles } from './dropzone.styles';
+import { useDropzoneTreeStyles } from './dropzoneTree.styles';
+import FileTypeIcon from './FileTypeIcon';
 
-export function Dropzone({
+export function DropzoneTree({
   onDrop,
   file,
   accept,
@@ -25,11 +27,33 @@ export function Dropzone({
   const [filesReaded, setFilesReaded] = useState(file && !Array.isArray(file) ? [file] : file);
   const isRequiredError = required && submitted && !filesReaded?.length;
   const theme = useTheme();
-  const classes = useDropzoneStyles();
+  const classes = useDropzoneTreeStyles();
 
+  const [filetree, setFileTree] = useState(null);
+  
   useEffect(() => {
     return setFilesReaded(file && !Array.isArray(file) ? [file] : file);
   }, [file]);
+  
+  useEffect(() => {
+    var tree = {};
+
+    filesReaded?.forEach((path, index) => {
+      var currentNode = tree;
+      path.split('/').forEach((segment, subIndex, a) => {
+        if(segment !== '' || subIndex > 0)
+        {
+          if (currentNode[segment] === undefined) {
+            currentNode[segment] = subIndex === a.length - 1 ? {index, type: segment.split('.')[1]} : {};
+          }
+          
+          currentNode = currentNode[segment];
+        }
+      });
+    });
+
+    setFileTree(getChildTreeItems(tree));
+  }, [filesReaded]);
 
   function handleDeleteFile(file, index) {
     setFilesReaded(prevFiles => prevFiles.filter((o, i) => i !== index));
@@ -64,6 +88,31 @@ export function Dropzone({
     multiple: multiple
   });
 
+  function getChildTreeItems(item, previousId = '')
+  {
+    return Object.keys(item).map(key => {
+      var newId = `${previousId}/${key}`;
+      return <>
+      {item[key].index === undefined
+        ? <TreeItem nodeId={newId} label={key} onClick={e => e.stopPropagation()}
+        style={{borderLeft: '1px solid' }}>
+          {getChildTreeItems(item[key], newId)}
+        </TreeItem>
+        :<Tooltip title={key}>
+          <Chip
+              style={{ justifyContent: 'left' }}
+              disabled={disabled}
+              icon={<FileTypeIcon fileType={item[key].type} />}
+              label={key}
+              onDelete={() => handleDeleteFile(newId, item[key].index)}
+              className={classes.chip}
+          />
+        </Tooltip>
+        }
+      </>;
+    });
+  }
+
   return (
     <div style={{ flex: 1 }}>
       <div
@@ -71,20 +120,19 @@ export function Dropzone({
         className={`${classes.root} ${isRequiredError ? 'Mui-error' : ''} ${disabled ? 'Mui-disabled' : ''}`}
       >
         <div className={classes.wrapper}>
-          <input {...getInputProps()}  /* webkitdirectory="" mozdirectory="" directory=""*/ />
+          <input {...getInputProps()} webkitdirectory="" mozdirectory="" directory="" />
           {filesReaded?.length ? (
             isLoading ? (
               <Skeleton width="215px" height={skeletonHeight} />
             ) : (
-              filesReaded.map((f, i) => <Tooltip title={f}>
-                <Chip
-                  disabled={disabled}
-                  icon={<FileCopy />}
-                  label={f}
-                  onDelete={() => handleDeleteFile(f, i)}
-                  className={classes.chip}
-                />
-              </Tooltip>)
+              <TreeView
+                aria-label="file system navigator"
+                defaultCollapseIcon={<ExpandMore />}
+                defaultExpandIcon={<ChevronRight />}
+                sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+              >
+                {filetree}
+              </TreeView>
             )
           ) : (
             <div className={classes.message}>
@@ -104,7 +152,7 @@ export function Dropzone({
   );
 }
 
-Dropzone.propTypes = {
+DropzoneTree.propTypes = {
   onDrop: PropTypes.func,
   onDeleteFile: PropTypes.func,
   file: PropTypes.string,

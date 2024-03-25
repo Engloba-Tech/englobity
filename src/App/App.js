@@ -20,6 +20,7 @@ import {
   ButtonSave,
   DialogModal,
   Dropzone,
+  DropzoneTree,
   ErrorSummary,
   errorToaster,
   Form,
@@ -64,18 +65,20 @@ export function App() {
   };
 
   function handleSelectFile(acceptedFile) {
-    const file = acceptedFile[0];
+
+    console.log(acceptedFile);
     setInputs(prevInputs => ({
       ...prevInputs,
-      documentName: file.name
+      documentName: acceptedFile.map(f => f.path)
     }));
     setSubmitted(false);
   }
-  function handleDeleteFile() {
+  function handleDeleteFile(file, index) {
+    console.log(index, inputs);
     setInputs(prevInputs => ({
       ...prevInputs,
       documentUrl: null,
-      documentName: null
+      documentName: prevInputs.documentName.filter((o, i) => i !== index)
     }));
     setSubmitted(false);
   }
@@ -727,6 +730,7 @@ export function App() {
                 onDrop={handleSelectFile}
                 onDeleteFile={handleDeleteFile}
                 labelDrop={'Drop here your document'}
+                multiple
               />
             </span>
             <span>
@@ -739,6 +743,17 @@ export function App() {
                 onDrop={handleSelectFile}
                 onDeleteFile={handleDeleteFile}
                 labelDrop={'Drop here your document'}
+                multiple
+              />
+            </span>
+            <span>
+              CommonTree
+              <DropzoneTree
+                file={inputs?.documentName}
+                onDrop={handleSelectFile}
+                onDeleteFile={handleDeleteFile}
+                labelDrop={'Drop here your document'}
+                multiple
               />
             </span>
           </div>
