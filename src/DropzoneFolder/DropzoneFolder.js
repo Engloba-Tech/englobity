@@ -25,7 +25,7 @@ export function DropzoneFolder({
 }) {
   const theme = useTheme();
   const classes = useDropzoneFolderStyles();
-  const isRequiredError = required && submitted;
+  const isRequiredError = required && submitted && !folderName;
 
   const handleDragEnter = useCallback(
     event => {
