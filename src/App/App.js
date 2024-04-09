@@ -935,6 +935,30 @@ export function App() {
             <DialogModal
               maxWidth={'xl'}
               fullWidth
+              title={'Modal'}
+              buttons={[
+                {
+                  children: <CloseIcon />,
+                  text: 'Close',
+                  type: 'secondary',
+                  onClick: () => setOpenModal(false)
+                },
+                {
+                  children: <CloseIcon />,
+                  text: 'Accept',
+                  type: 'primary',
+                  onClick: () => setOpenModal(false),
+                  loading: loading
+                }
+              ]}
+              isOpen={openModal}
+              onClose={() => setOpenModal(false)}
+            >
+              <Button onClick={() => errorToaster('Error!')}>Throw error</Button>
+            </DialogModal>
+            <DialogModal
+              maxWidth={'xl'}
+              fullWidth
               title={'Modal With children'}
               isOpen={openModalWithChildren}
               onClose={() => setOpenModalWithChildren(false)}
@@ -947,8 +971,8 @@ export function App() {
                 },
                 {
                   children: <CloseIcon />,
-                  text: 'Close',
-                  type: 'secondary',
+                  text: 'Accept',
+                  type: 'primary',
                   onClick: () => setOpenModalWithChildren(false),
                   loading: loading
                 }

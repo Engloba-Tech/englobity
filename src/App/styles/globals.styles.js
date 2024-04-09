@@ -51,7 +51,7 @@ export const globals = {
   '.MuiPopover-root': {
     zIndex: '2300 !important'
   },
-  '.MuiSnackbar-root': {
-    zIndex: '2100'
+  '#global div .MuiSnackbar-root': {
+    zIndex: '2300 !important'
   }
 };
