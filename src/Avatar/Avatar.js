@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { Avatar, Card, CardContent, Link, Menu, MenuItem, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { Menu, MenuItem, Avatar } from '@material-ui/core';
+import React, { useState } from 'react';
 import { useAvatarStyles } from './avatar.styles';
-import { Card, CardContent, Link, Typography } from '@material-ui/core';
 
 export function CustomAvatar({
   onLogOut,
@@ -14,6 +13,7 @@ export function CustomAvatar({
   onMyAccountClick,
   onClickAvatarPicture,
   className,
+  onlyAvatar = false,
   ...props
 }) {
   const classes = useAvatarStyles();
@@ -38,14 +38,10 @@ export function CustomAvatar({
   return (
     <div className={className}>
       <MenuItem onClick={handleProfileMenuOpen}>
-        <Avatar
-          alt={userName}
-          src={userThumbnail || ''}
-          className={classes.avatarIcon}
-        >
+        <Avatar alt={userName} src={userThumbnail || ''} className={classes.avatarIcon}>
           {letters}
         </Avatar>
-        <p className={`${classes.text} ${classes.textLeft}`}>{userName}</p>
+        {!onlyAvatar && <p className={`${classes.text} ${classes.textLeft}`}>{userName}</p>}
       </MenuItem>
 
       <Menu
@@ -57,11 +53,11 @@ export function CustomAvatar({
         {...props}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'center',
+          horizontal: 'center'
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'center',
+          horizontal: 'center'
         }}
         open={isMenuOpen}
         onClose={handleMenuClose}
@@ -73,7 +69,7 @@ export function CustomAvatar({
                 alt={userName}
                 src={userThumbnail || ''}
                 className={`${classes.avatarIcon} ${classes.avatarIconBig}`}
-				style={{ cursor: onClickAvatarPicture && 'pointer' }}
+                style={{ cursor: onClickAvatarPicture && 'pointer' }}
                 onClick={onClickAvatarPicture && onClickAvatarPicture}
               >
                 {letters}
@@ -115,5 +111,6 @@ CustomAvatar.propTypes = {
   onMyAccountClick: PropTypes.func.isRequired,
   userThumbnail: PropTypes.string,
   onClickAvatarPicture: PropTypes.func,
-  className: PropTypes.string
+  className: PropTypes.string,
+  onlyAvatar: PropTypes.bool
 };
