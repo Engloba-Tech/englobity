@@ -35,6 +35,11 @@ export function CustomAvatar({
     onLogOut();
   }
 
+  function handleClickOnMyAccount() {
+    onMyAccountClick();
+    handleMenuClose();
+  }
+
   return (
     <div className={className}>
       <MenuItem onClick={handleProfileMenuOpen}>
@@ -83,7 +88,7 @@ export function CustomAvatar({
                 {userEmail}
               </Typography>
               {onMyAccountClick && (
-                <Link onClick={onMyAccountClick} style={{ cursor: 'pointer' }}>
+                <Link onClick={handleClickOnMyAccount} style={{ cursor: 'pointer' }}>
                   {myAccountText || 'My account'}
                 </Link>
               )}
