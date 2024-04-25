@@ -14,11 +14,14 @@ export function CustomAvatar({
   onClickAvatarPicture,
   className,
   onlyAvatar = false,
+  onlyOneLetter = false,
   ...props
 }) {
   const classes = useAvatarStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-  const letters = userEmail[0]?.toUpperCase() + userEmail[2]?.toUpperCase();
+  const letters = onlyOneLetter
+    ? userEmail[0]?.toUpperCase()
+    : userEmail[0]?.toUpperCase() + userEmail[2]?.toUpperCase();
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -117,5 +120,6 @@ CustomAvatar.propTypes = {
   userThumbnail: PropTypes.string,
   onClickAvatarPicture: PropTypes.func,
   className: PropTypes.string,
-  onlyAvatar: PropTypes.bool
+  onlyAvatar: PropTypes.bool,
+  onlyOneLetter: PropTypes.bool
 };

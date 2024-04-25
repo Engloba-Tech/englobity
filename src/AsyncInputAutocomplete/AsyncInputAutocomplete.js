@@ -27,6 +27,7 @@ export function AsyncInputAutocomplete({
   isLoading,
   onClick,
   skeletonHeight = 48,
+  inputVariant,
   composed, // <-- If the input is painting the option with more text, like stars or something else, we need this prop to avoid bugs
   ...props
 }) {
@@ -146,6 +147,7 @@ export function AsyncInputAutocomplete({
       ) : (
         <Autocomplete
           {...props}
+          variant="standard"
           value={internalValue}
           open={isOpen}
           onOpen={handleAutocompleteOpen}
@@ -160,10 +162,13 @@ export function AsyncInputAutocomplete({
           loading={startLoading}
           popupIcon={<ArrowDropDownIcon onClick={onClickOpenButton} />}
           // Agrega un evento onClick al contenedor de las opciones
-          {...(!composed ? { renderOption: option => <div onClick={() => handleSelectOption(option)}>{option.name}</div> } : {})}
+          {...(!composed
+            ? { renderOption: option => <div onClick={() => handleSelectOption(option)}>{option.name}</div> }
+            : {})}
           // renderOption={option => <div onClick={() => handleSelectOption(option)}>{option.name}</div>}
           renderInput={params => (
             <Input
+              variant={inputVariant ?? 'outlined'}
               {...params}
               icon={icon}
               label={label}
@@ -205,5 +210,6 @@ AsyncInputAutocomplete.propTypes = {
   validators: PropTypes.arrayOf(PropTypes.string),
   errorMessages: PropTypes.arrayOf(PropTypes.string),
   skeletonHeight: PropTypes.number,
-  composed: PropTypes.bool
+  composed: PropTypes.bool,
+  inputVariant: PropTypes.string
 };
