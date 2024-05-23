@@ -156,6 +156,7 @@ export const useViewTableStyles = makeStyles(theme => ({
     flexGrow: 1,
     alignItems: 'end',
     borderTop: `1px solid ${theme.palette.primary.light}`,
+    marginTop: '5px',
     '& .MuiTablePagination-toolbar': {
       alignItems: 'center !important'
     },
