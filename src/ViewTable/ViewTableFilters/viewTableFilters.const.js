@@ -3,8 +3,7 @@ export const FILTER_TYPE = {
   INPUT: 'input_filter',
   DATE: 'date_filter',
   COMBO: 'combo_filter',
-  CHIP: 'chips_filter',
-  BOOLEAN: 'boolean_filter',
+  CHIP: 'chips_filter'
 };
 
 export const FILTER_SUFFIX = {

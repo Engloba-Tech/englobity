@@ -187,9 +187,11 @@ function _viewTableFilters({
           {cells.some(cell => cell.action) ? (
             onFilterClear && (
               <Tooltip title={clearFiltersText}>
-                <IconButton className={classes.clearFilters} onClick={resetFilter}>
-                  <DeleteSweepIcon />
-                </IconButton>
+                <td className={classes.clearFilters}>
+                  <IconButton onClick={resetFilter}>
+                    <DeleteSweepIcon />
+                  </IconButton>
+                </td>
               </Tooltip>
             )
           ) : (

@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { color } from '../../App/styles/color.styles';
 
-const defauldButton = (font) => ({
+const defaultButton = (font) => ({
   height: '2.4rem',
   padding: '0rem 1rem',
   // minWidth: '6.25rem',
@@ -13,7 +13,7 @@ const defauldButton = (font) => ({
 
 export const useButtonStyles = makeStyles((theme) => ({
   button: {
-    ...defauldButton(theme.font),
+    ...defaultButton(theme.font),
     background: color.buttons.delete.light,
     color: color.buttons.delete.main,
     '&:hover': {

@@ -26,7 +26,7 @@ export function ViewTableHead(props) {
 
   return (
     <TableHead>
-      <TableRow hover={!disableOrderBy}>
+      <TableRow hover={!Boolean(disableOrderBy)}>
         {allowRowChecking ? (
           <TableCell padding="checkbox">
             {!onlyOneCheck && (

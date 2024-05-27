@@ -186,7 +186,7 @@ export function _viewTable({
                 return (
                   <TableRow
                     // TODO: fix hover is object instead of boolean
-                    hover
+                    hover={true}
                     role="checkbox"
                     aria-checked={isItemChecked}
                     tabIndex={-1}
