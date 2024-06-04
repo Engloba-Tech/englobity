@@ -18,6 +18,7 @@ function FilterSwitch({
   onChange,
   dateFromText,
   dateUntilText,
+  dateFormat,
   todayDatePickerLabel,
   clearDatePickerLabel,
   cancelDatePickerLabel,
@@ -29,7 +30,7 @@ function FilterSwitch({
   const handleEnterKey = e => {
     if (e.key === 'Enter') {
       const pickerName = cell.id + FILTER_SUFFIX.START;
-      const value = e.target.value ? moment(e?.target?.value, 'DD/MM/YYYY HH:mm') : null;
+      const value = e.target.value ? moment(e?.target?.value, dateFormat) : null;
       setInputs(prev => ({ ...prev, [pickerName]: value }));
       onChange(pickerName, value);
     }
@@ -53,7 +54,7 @@ function FilterSwitch({
             value={inputs[cell.id + FILTER_SUFFIX.START]}
             onChange={e => {
               const pickerName = cell.id + FILTER_SUFFIX.START;
-              const value = e.target.value ? moment(e?.target?.value, 'DD/MM/YYYY HH:mm') : null;
+              const value = e.target.value ? moment(e?.target?.value, dateFormat) : null;
               setInputs(prev => ({ ...prev, [pickerName]: value }));
               onChange(pickerName, value);
             }}
@@ -75,7 +76,7 @@ function FilterSwitch({
             value={inputs[cell.id + FILTER_SUFFIX.END]}
             onChange={e => {
               const pickerName = cell.id + FILTER_SUFFIX.END;
-              const value = e.target.value ? moment(e?.target?.value, 'DD/MM/YYYY HH:mm') : null;
+              const value = e.target.value ? moment(e?.target?.value, dateFormat) : null;
               setInputs(prev => ({ ...prev, [pickerName]: value }));
               onChange(pickerName, value);
             }}
@@ -133,6 +134,7 @@ function FilterSwitch({
 FilterSwitch.propTypes = {
   cell: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
+  dateFormat: PropTypes.string,
   selectFirstOptionComboFilterText: PropTypes.string,
   dateFromText: PropTypes.string,
   dateUntilText: PropTypes.string,

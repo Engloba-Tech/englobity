@@ -68,7 +68,8 @@ export function _viewTable({
   clearDatePickerLabel = 'Clear',
   cancelDatePickerLabel = 'Cancel',
   okDatePickerLabel = 'Accept',
-  onlyOneCheck = false
+  onlyOneCheck = false,
+  dateFormat
 }) {
   allowPaging = allowPaging && !allowRowToggling;
   allowRowFilter = allowRowFilter && !allowRowToggling && !onlyRows;
@@ -153,6 +154,7 @@ export function _viewTable({
                 onFilterCellChange={changeFilter}
                 onFilterClear={resetFilter}
                 clearFiltersText={clearFiltersText}
+                dateFormat={dateFormat}
                 dateFromText={dateFromText}
                 dateUntilText={dateUntilText}
                 todayDatePickerLabel={todayDatePickerLabel}
