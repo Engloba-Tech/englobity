@@ -154,7 +154,8 @@ function _viewTableFilters({
   todayDatePickerLabel,
   clearDatePickerLabel,
   cancelDatePickerLabel,
-  okDatePickerLabel
+  okDatePickerLabel,
+  dateFormat
 }) {
   const classes = useViewTableFiltersStyles();
 
@@ -181,6 +182,7 @@ function _viewTableFilters({
                     clearDatePickerLabel={clearDatePickerLabel}
                     cancelDatePickerLabel={cancelDatePickerLabel}
                     okDatePickerLabel={okDatePickerLabel}
+                    dateFormat={dateFormat}
                   />
                 )}
               </TableCell>
@@ -223,5 +225,6 @@ _viewTableFilters.propTypes = {
   todayDatePickerLabel: PropTypes.string,
   clearDatePickerLabel: PropTypes.string,
   cancelDatePickerLabel: PropTypes.string,
-  okDatePickerLabel: PropTypes.string
+  okDatePickerLabel: PropTypes.string,
+  dateFormat: PropTypes.string
 };
