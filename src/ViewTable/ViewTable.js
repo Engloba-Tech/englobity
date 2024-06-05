@@ -31,7 +31,7 @@ import { getComparator, stableSort } from './viewTable.helper';
 import { useViewTableStyles } from './viewTable.styles';
 import { ViewTableFilters } from './ViewTableFilters';
 
-export function _viewTable({
+function _viewTable({
   rows,
   cells,
   summaryCells,
@@ -79,7 +79,7 @@ export function _viewTable({
 
   const classes = useViewTableStyles();
 
-  function getVisibleRows(rows) {
+  function getVisibleRows({ rows, allowPaging, serverSidePaging, disableOrderBy, order, orderBy, page, rowsPerPage }) {
     if (allowPaging && serverSidePaging) return rows;
 
     let sortedRows = disableOrderBy ? rows : stableSort(rows, getComparator(order, orderBy));
@@ -104,7 +104,7 @@ export function _viewTable({
   useEffect(() => {
     if (page > 0 && !rows.length) changePage(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rows.length]);
+  }, [rows.length, page, changePage]);
 
   const renderAction = (action, row) => {
     return (
@@ -165,17 +165,15 @@ export function _viewTable({
             </TableRow>
           )}
 
-          {!rows.length ? (
             <TableBody>
+            {!rows.length ? (
               <TableRow>
                 <TableCell style={{ borderBottom: 'none', background: 'white' }} colSpan="100%">
                   <InfoSummary className={classes.summary} text={emptyText} />
                 </TableCell>
               </TableRow>
-            </TableBody>
           ) : (
-            <TableBody>
-              {getVisibleRows(rows).map((row, index) => {
+              getVisibleRows({ rows, allowPaging, serverSidePaging, disableOrderBy, order, orderBy, page, rowsPerPage }).map((row, index) => {
                 const isItemChecked = isChecked && isChecked(row);
                 const isItemVisible =
                   (isVisible && isVisible(row)) ||
@@ -246,8 +244,7 @@ export function _viewTable({
                       </TableCell>
                     )}
 
-                    {cells.map(cell => {
-                      return (
+                    {cells.map(cell => (
                         <TableCell
                           key={shortid.generate()}
                           align={cell.numeric ? 'right' : cell.formatAsColumn ? 'center' : 'left'}
@@ -305,12 +302,12 @@ export function _viewTable({
                             cell.additionalProperty.afterParent &&
                             cell.additionalProperty.value(row)}
                         </TableCell>
-                      );
-                    })}
+                      ))}
                     {allowRowFilter && !cells.some(cell => cell.action) && <TableCell />}
                   </TableRow>
                 );
-              })}
+              })
+            )}
               {summaryCells && cells && (
                 <ViewTableSummary
                   classes={classes}
@@ -322,7 +319,6 @@ export function _viewTable({
                 />
               )}
             </TableBody>
-          )}
         </Table>
       </TableContainer>
 
@@ -401,5 +397,6 @@ _viewTable.propTypes = {
   cancelDatePickerLabel: PropTypes.string,
   okDatePickerLabel: PropTypes.string,
   dateFromText: PropTypes.string,
-  dateUntilText: PropTypes.string
+  dateUntilText: PropTypes.string,
+  dateFormat: PropTypes.string
 };
