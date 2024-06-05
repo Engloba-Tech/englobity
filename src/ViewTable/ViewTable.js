@@ -68,7 +68,8 @@ export function _viewTable({
   clearDatePickerLabel = 'Clear',
   cancelDatePickerLabel = 'Cancel',
   okDatePickerLabel = 'Accept',
-  onlyOneCheck = false
+  onlyOneCheck = false,
+  dateFormat = 'DD/MM/YYYY HH:mm'
 }) {
   allowPaging = allowPaging && !allowRowToggling;
   allowRowFilter = allowRowFilter && !allowRowToggling && !onlyRows;
@@ -159,6 +160,7 @@ export function _viewTable({
                 clearDatePickerLabel={clearDatePickerLabel}
                 cancelDatePickerLabel={cancelDatePickerLabel}
                 okDatePickerLabel={okDatePickerLabel}
+                dateFormat={dateFormat}
               />
             </TableRow>
           )}
@@ -399,5 +401,6 @@ _viewTable.propTypes = {
   cancelDatePickerLabel: PropTypes.string,
   okDatePickerLabel: PropTypes.string,
   dateFromText: PropTypes.string,
-  dateUntilText: PropTypes.string
+  dateUntilText: PropTypes.string,
+  dateFormat: PropTypes.string
 };

@@ -4,12 +4,12 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-// import { TextValidator } from 'react-material-ui-form-validator';
 import { Input } from '..';
 
 export function CustomDateTimePicker({
   withHours,
   value,
+  format = 'DD/MM/YYYY',
   icon,
   InputProps,
   inputClassName,
@@ -35,7 +35,7 @@ export function CustomDateTimePicker({
   const onBlur = e => {
     const event = {
       target: {
-        value: moment(e?.target?.value, 'DD/MM/YYYY HH:mm')
+        value: moment(e?.target?.value, format)
       }
     };
     if (!isCalendarOpen) onChange(event);
@@ -64,7 +64,7 @@ export function CustomDateTimePicker({
       ) : withHours ? (
         <KeyboardDateTimePicker
           {...params}
-          format="DD/MM/YYYY HH:mm"
+          format={format.concat(' HH:mm')}
           onOpen={() => setIsCalendarOpen(true)}
           onClose={() => setIsCalendarOpen(false)}
           minDate={undefined}
@@ -80,12 +80,11 @@ export function CustomDateTimePicker({
       ) : (
         <KeyboardDatePicker
           {...params}
-          format="DD/MM/YYYY"
+          format={format}
           onOpen={() => setIsCalendarOpen(true)}
           onClose={() => setIsCalendarOpen(false)}
           minDate={undefined}
           maxDate={undefined}
-          // TextFieldComponent={TextValidator}
         />
       )}
     </>
@@ -95,6 +94,7 @@ export function CustomDateTimePicker({
 CustomDateTimePicker.propTypes = {
   withHours: PropTypes.bool,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.instanceOf(Date)]),
+  format: PropTypes.string,
   icon: PropTypes.element,
   InputProps: PropTypes.object,
   onChange: PropTypes.func,

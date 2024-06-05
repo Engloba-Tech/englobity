@@ -398,8 +398,8 @@ export function App() {
               <LocaleDatePicker value={inputs?.date} onChange={handleDateChange} />
             </span>
             <span>
-              <LocaleDatePicker name='required' value={inputs?.date} onChange={handleDateChange} validators={['required']}
-              errorMessages={['validations.required']} />
+              <LocaleDatePicker name='required' value={inputs?.date} onChange={handleDateChange} 
+                validators={['required']} errorMessages={['validations.required']} />
             </span>
           </div>
           <hr />
