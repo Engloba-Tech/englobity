@@ -86,7 +86,7 @@ export function CustomDateTimePicker({
           onClose={() => setIsCalendarOpen(false)}
           minDate={undefined}
           maxDate={undefined}
-          TextFieldComponent={props?.validtors && props.validators.length > 0 && TextValidator}
+          TextFieldComponent={props?.validators && props.validators.length > 0 && TextValidator}
         />
       )}
     </>
