@@ -18,11 +18,11 @@ function FilterSwitch({
   onChange,
   dateFromText,
   dateUntilText,
-  dateFormat,
   todayDatePickerLabel,
   clearDatePickerLabel,
   cancelDatePickerLabel,
-  okDatePickerLabel
+  okDatePickerLabel,
+  dateFormat,
 }) {
   const [inputs, setInputs] = useState({});
   const classes = useViewTableFiltersStyles();
@@ -134,14 +134,14 @@ function FilterSwitch({
 FilterSwitch.propTypes = {
   cell: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  dateFormat: PropTypes.string,
   selectFirstOptionComboFilterText: PropTypes.string,
   dateFromText: PropTypes.string,
   dateUntilText: PropTypes.string,
   todayDatePickerLabel: PropTypes.string,
   clearDatePickerLabel: PropTypes.string,
   cancelDatePickerLabel: PropTypes.string,
-  okDatePickerLabel: PropTypes.string
+  okDatePickerLabel: PropTypes.string,
+  dateFormat: PropTypes.string
 };
 
 function _viewTableFilters({
@@ -154,7 +154,8 @@ function _viewTableFilters({
   todayDatePickerLabel,
   clearDatePickerLabel,
   cancelDatePickerLabel,
-  okDatePickerLabel
+  okDatePickerLabel,
+  dateFormat
 }) {
   const classes = useViewTableFiltersStyles();
 
@@ -181,6 +182,7 @@ function _viewTableFilters({
                     clearDatePickerLabel={clearDatePickerLabel}
                     cancelDatePickerLabel={cancelDatePickerLabel}
                     okDatePickerLabel={okDatePickerLabel}
+                    dateFormat={dateFormat}
                   />
                 )}
               </TableCell>
@@ -223,5 +225,6 @@ _viewTableFilters.propTypes = {
   todayDatePickerLabel: PropTypes.string,
   clearDatePickerLabel: PropTypes.string,
   cancelDatePickerLabel: PropTypes.string,
-  okDatePickerLabel: PropTypes.string
+  okDatePickerLabel: PropTypes.string,
+  dateFormat: PropTypes.string
 };

@@ -10,7 +10,7 @@ import { Input } from '..';
 export function CustomDateTimePicker({
   withHours,
   value,
-  format = 'DD/MM/YYYY',
+  format = 'MM/DD/YYYY',
   icon,
   InputProps,
   inputClassName,
@@ -65,7 +65,7 @@ export function CustomDateTimePicker({
       ) : withHours ? (
         <KeyboardDateTimePicker
           {...params}
-          format= {format.concat(' HH:mm')}
+          format={format.concat(' HH:mm')}
           onOpen={() => setIsCalendarOpen(true)}
           onClose={() => setIsCalendarOpen(false)}
           minDate={undefined}
@@ -81,7 +81,7 @@ export function CustomDateTimePicker({
       ) : (
         <KeyboardDatePicker
           {...params}
-          format= {format}
+          format={format}
           onOpen={() => setIsCalendarOpen(true)}
           onClose={() => setIsCalendarOpen(false)}
           minDate={undefined}
