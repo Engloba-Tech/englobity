@@ -4,7 +4,6 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-import { TextValidator } from 'react-material-ui-form-validator';
 import { Input } from '..';
 
 export function CustomDateTimePicker({
@@ -86,7 +85,6 @@ export function CustomDateTimePicker({
           onClose={() => setIsCalendarOpen(false)}
           minDate={undefined}
           maxDate={undefined}
-          TextFieldComponent={props?.validators && props.validators.length > 0 && TextValidator}
         />
       )}
     </>
