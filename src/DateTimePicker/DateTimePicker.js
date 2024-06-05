@@ -10,7 +10,7 @@ import { Input } from '..';
 export function CustomDateTimePicker({
   withHours,
   value,
-  format = 'MM/DD/YYYY',
+  format = 'DD/MM/YYYY',
   icon,
   InputProps,
   inputClassName,
@@ -86,7 +86,7 @@ export function CustomDateTimePicker({
           onClose={() => setIsCalendarOpen(false)}
           minDate={undefined}
           maxDate={undefined}
-          TextFieldComponent={TextValidator}
+          TextFieldComponent={props?.validtors && props.validators.length > 0 && TextValidator}
         />
       )}
     </>

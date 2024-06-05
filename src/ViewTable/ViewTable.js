@@ -69,7 +69,7 @@ export function _viewTable({
   cancelDatePickerLabel = 'Cancel',
   okDatePickerLabel = 'Accept',
   onlyOneCheck = false,
-  dateFormat = 'MM/DD/YYYY HH:mm'
+  dateFormat = 'DD/MM/YYYY HH:mm'
 }) {
   allowPaging = allowPaging && !allowRowToggling;
   allowRowFilter = allowRowFilter && !allowRowToggling && !onlyRows;
