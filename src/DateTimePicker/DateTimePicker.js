@@ -45,6 +45,7 @@ export function CustomDateTimePicker({
     TextFieldComponent: params => <Input {...params} className={inputClassName} />,
     keyboardIcon: icon,
     value: value || null,
+    format: format,
     autoOk: true,
     clearable: true,
     showTodayButton: true,
