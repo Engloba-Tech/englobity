@@ -1036,6 +1036,7 @@ export function App() {
               // checkedElements={checkedElements}
               emptyText={'no results!'}
               nextIconButtonText={'nexttt'}
+              dateFormat='DD/MM/YYYY'
             />
           </div>
         </Form>

@@ -52,6 +52,7 @@ function FilterSwitch({
             name={cell.id}
             className={`${classes.date} ${classes.dateLeft}`}
             value={inputs[cell.id + FILTER_SUFFIX.START]}
+            format={dateFormat}
             onChange={e => {
               const pickerName = cell.id + FILTER_SUFFIX.START;
               const value = e.target.value ? moment(e?.target?.value, dateFormat) : null;
@@ -74,6 +75,7 @@ function FilterSwitch({
             name={cell.id}
             className={`${classes.date} ${classes.dateRight}`}
             value={inputs[cell.id + FILTER_SUFFIX.END]}
+            format={dateFormat}
             onChange={e => {
               const pickerName = cell.id + FILTER_SUFFIX.END;
               const value = e.target.value ? moment(e?.target?.value, dateFormat) : null;
