@@ -9,7 +9,7 @@ import { Input } from '..';
 export function CustomDateTimePicker({
   withHours,
   value,
-  format = 'DD/MM/YYYY',
+  dateFormat = 'DD/MM/YYYY',
   icon,
   InputProps,
   inputClassName,
@@ -35,7 +35,7 @@ export function CustomDateTimePicker({
   const onBlur = e => {
     const event = {
       target: {
-        value: moment(e?.target?.value, format)
+        value: moment(e?.target?.value, dateFormat)
       }
     };
     if (!isCalendarOpen) onChange(event);
@@ -45,7 +45,7 @@ export function CustomDateTimePicker({
     TextFieldComponent: params => <Input {...params} className={inputClassName} />,
     keyboardIcon: icon,
     value: value || null,
-    format: format,
+    dateFormat: dateFormat,
     autoOk: true,
     clearable: true,
     showTodayButton: true,
@@ -65,7 +65,7 @@ export function CustomDateTimePicker({
       ) : withHours ? (
         <KeyboardDateTimePicker
           {...params}
-          format={format.concat(' HH:mm')}
+          dateFormat={dateFormat.concat(' HH:mm')}
           onOpen={() => setIsCalendarOpen(true)}
           onClose={() => setIsCalendarOpen(false)}
           minDate={undefined}
@@ -74,14 +74,14 @@ export function CustomDateTimePicker({
       ) : onlyTime ? (
         <KeyboardTimePicker
           {...params}
-          format="HH:mm"
+          dateFormat="HH:mm"
           onOpen={() => setIsCalendarOpen(true)}
           onClose={() => setIsCalendarOpen(false)}
         />
       ) : (
         <KeyboardDatePicker
           {...params}
-          format={format}
+          dateFormat={dateFormat}
           onOpen={() => setIsCalendarOpen(true)}
           onClose={() => setIsCalendarOpen(false)}
           minDate={undefined}
@@ -95,7 +95,7 @@ export function CustomDateTimePicker({
 CustomDateTimePicker.propTypes = {
   withHours: PropTypes.bool,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.instanceOf(Date)]),
-  format: PropTypes.string,
+  dateFormat: PropTypes.string,
   icon: PropTypes.element,
   InputProps: PropTypes.object,
   onChange: PropTypes.func,
