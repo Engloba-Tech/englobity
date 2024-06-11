@@ -22,7 +22,7 @@ function FilterSwitch({
   clearDatePickerLabel,
   cancelDatePickerLabel,
   okDatePickerLabel,
-  dateFormat,
+  dateFormat
 }) {
   const [inputs, setInputs] = useState({});
   const classes = useViewTableFiltersStyles();
@@ -193,11 +193,11 @@ function _viewTableFilters({
           {cells.some(cell => cell.action) ? (
             onFilterClear && (
               <Tooltip title={clearFiltersText}>
-                {/* <td className={classes.clearFilters}> */}
+                <td className={classes.clearFilters}>
                   <IconButton onClick={resetFilter}>
                     <DeleteSweepIcon />
                   </IconButton>
-                {/* </td> */}
+                </td>
               </Tooltip>
             )
           ) : (
