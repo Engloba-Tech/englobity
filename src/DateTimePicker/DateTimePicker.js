@@ -21,6 +21,8 @@ export function CustomDateTimePicker({
 }) {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
+  const format = withHours ? dateFormat.concat(' HH:mm') : onlyTime ? 'HH:mm' : dateFormat;
+
   function handleDateChange(date) {
     if (onChange) {
       const event = {
@@ -55,6 +57,7 @@ export function CustomDateTimePicker({
     onBlur: onBlur,
     onChange: handleDateChange,
     variant: 'dialog',
+    format,
     ...props
   };
 
@@ -65,7 +68,7 @@ export function CustomDateTimePicker({
       ) : withHours ? (
         <KeyboardDateTimePicker
           {...params}
-          dateFormat={dateFormat.concat(' HH:mm')}
+          dateFormat={format}
           onOpen={() => setIsCalendarOpen(true)}
           onClose={() => setIsCalendarOpen(false)}
           minDate={undefined}
@@ -74,14 +77,14 @@ export function CustomDateTimePicker({
       ) : onlyTime ? (
         <KeyboardTimePicker
           {...params}
-          dateFormat="HH:mm"
+          dateFormat={format}
           onOpen={() => setIsCalendarOpen(true)}
           onClose={() => setIsCalendarOpen(false)}
         />
       ) : (
         <KeyboardDatePicker
           {...params}
-          dateFormat={dateFormat}
+          dateFormat={format}
           onOpen={() => setIsCalendarOpen(true)}
           onClose={() => setIsCalendarOpen(false)}
           minDate={undefined}

@@ -6,6 +6,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import clsx from 'clsx';
 import React, { useRef, useState } from 'react';
 
+import { Grid } from '@material-ui/core';
 import {
   AlertIcon,
   AsyncInputAutocomplete,
@@ -43,7 +44,6 @@ import { CustomSwitch } from '../Switch/Switch';
 import { useAppStyles } from './app.styles';
 import { useReceivedInvoiceLineBuildTable } from './useReceivedInvoiceLineBuildTable';
 import { useTogglingElements } from './useTogglingElements';
-import { Grid } from '@material-ui/core';
 
 require('babel-polyfill');
 
@@ -395,11 +395,16 @@ export function App() {
           >
             {JSON.stringify(inputs?.date)}
             <span>
-              <LocaleDatePicker value={inputs?.date} onChange={handleDateChange} />
+              <LocaleDatePicker value={inputs?.date} onChange={handleDateChange} withHours />
             </span>
             <span>
-              <LocaleDatePicker name='required' value={inputs?.date} onChange={handleDateChange} 
-                validators={['required']} errorMessages={['validations.required']} />
+              <LocaleDatePicker
+                name="required"
+                value={inputs?.date}
+                onChange={handleDateChange}
+                validators={['required']}
+                errorMessages={['validations.required']}
+              />
             </span>
           </div>
           <hr />
@@ -1036,7 +1041,7 @@ export function App() {
               // checkedElements={checkedElements}
               emptyText={'no results!'}
               nextIconButtonText={'nexttt'}
-              dateFormat='DD/MM/YYYY'
+              dateFormat="DD/MM/YYYY"
             />
           </div>
         </Form>
