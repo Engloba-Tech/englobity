@@ -195,6 +195,7 @@ export function _viewTable({
                     key={shortid.generate()}
                     onClick={() => (row.isAccordionHeader ? onToggleElement(row) : undefined)}
                     selected={isItemChecked}
+                    className={row.isAccordionHeader && 'accordionHeader'}
                     style={{
                       height: 53,
                       cursor: row.isAccordionHeader && 'pointer',
@@ -225,7 +226,7 @@ export function _viewTable({
                     )}
 
                     {row.isAccordionHeader && (
-                      <TableCell padding="checkbox" className="accordionHeader">
+                      <TableCell padding="checkbox">
                         {!isItemToggled ? (
                           <ChevronRightIcon
                             onClick={() => onToggleElement(row)}
