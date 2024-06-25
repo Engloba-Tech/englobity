@@ -22,7 +22,6 @@ export function CustomDateTimePicker({
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   const format = withHours ? dateFormat.concat(' HH:mm') : onlyTime ? 'HH:mm' : dateFormat;
-
   function handleDateChange(date) {
     if (onChange) {
       const event = {

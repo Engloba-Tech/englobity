@@ -72,7 +72,7 @@ export function _viewTable({
   dateFormat = 'DD/MM/YYYY HH:mm'
 }) {
   allowPaging = allowPaging && !allowRowToggling;
-  allowRowFilter = allowRowFilter && !allowRowToggling && !onlyRows;
+  allowRowFilter = allowRowFilter && !onlyRows;
 
   const { order, orderBy, page, rowsPerPage, changeSort, changePage, changeRows, changeFilter, resetFilter } =
     usePagination(cells, onFetchData, defaultOrderBy || (disableOrderBy ? '' : cells[0].id));
