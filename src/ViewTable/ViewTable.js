@@ -225,7 +225,7 @@ export function _viewTable({
                     )}
 
                     {row.isAccordionHeader && (
-                      <TableCell padding="checkbox">
+                      <TableCell padding="checkbox" className="accordionHeader">
                         {!isItemToggled ? (
                           <ChevronRightIcon
                             onClick={() => onToggleElement(row)}
