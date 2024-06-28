@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { execHelper } from '../helper/exec.helper';
 import { viewTableFiltersHelper } from './ViewTableFilters';
 
@@ -7,11 +7,11 @@ const DESCENDING_ORDER_KEY = 'desc';
 const ROWS_PER_PAGE = 10;
 
 // TODO :tests
-export function usePagination(cells, onFetchPaginatedData, initialOrderBy) {
+export function usePagination(cells, onFetchPaginatedData, initialOrderBy, numberRowsPerPage) {
   const [order, setOrder] = useState(ASCENDING_ORDER_KEY);
   const [orderBy, setOrderBy] = useState(initialOrderBy);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(ROWS_PER_PAGE);
+  const [rowsPerPage, setRowsPerPage] = useState(numberRowsPerPage);
   const [filters, setFilters] = useState(viewTableFiltersHelper.mapCellsToFilteredCells(cells));
   const [lastFilters, setLastFilters] = useState({});
 
@@ -27,7 +27,7 @@ export function usePagination(cells, onFetchPaginatedData, initialOrderBy) {
       ? { orderBy: orderBy.property, orderDesc: orderBy.direction === DESCENDING_ORDER_KEY }
       : { orderBy: orderBy, orderDesc: order === DESCENDING_ORDER_KEY };
 
-      onFetchPaginatedData && onFetchPaginatedData({paging, sorting, filteredCells: filtersToBack});
+    onFetchPaginatedData && onFetchPaginatedData({ paging, sorting, filteredCells: filtersToBack });
   }, [page, rowsPerPage, orderBy, order, filters]);
   // WARN: dont add onFetchData method as depend
 

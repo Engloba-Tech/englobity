@@ -1042,6 +1042,8 @@ export function App() {
               emptyText={'no results!'}
               nextIconButtonText={'nexttt'}
               dateFormat="DD/MM/YYYY"
+              // numberRowsPerPage={5}
+              // rowPerPageOptions={[]}
             />
           </div>
         </Form>

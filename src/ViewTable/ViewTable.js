@@ -69,13 +69,14 @@ export function _viewTable({
   cancelDatePickerLabel = 'Cancel',
   okDatePickerLabel = 'Accept',
   onlyOneCheck = false,
-  dateFormat = 'DD/MM/YYYY HH:mm'
+  dateFormat = 'DD/MM/YYYY HH:mm',
+  numberRowsPerPage = 10,
+  rowPerPageOptions = [5, 10, 15, 20, 25, 50]
 }) {
   allowPaging = allowPaging && !allowRowToggling;
   allowRowFilter = allowRowFilter && !onlyRows;
-
   const { order, orderBy, page, rowsPerPage, changeSort, changePage, changeRows, changeFilter, resetFilter } =
-    usePagination(cells, onFetchData, defaultOrderBy || (disableOrderBy ? '' : cells[0].id));
+    usePagination(cells, onFetchData, defaultOrderBy || (disableOrderBy ? '' : cells[0].id), numberRowsPerPage);
 
   const classes = useViewTableStyles();
 
@@ -340,10 +341,10 @@ export function _viewTable({
             <TablePagination
               component="div"
               style={{ display: 'flex', justifyContent: 'flex-end', flex: 1 }}
-              rowsPerPageOptions={[5, 10, 15, 20, 25, 50]}
+              rowsPerPageOptions={rowPerPageOptions}
               count={totalRowCount}
-              rowsPerPage={rowsPerPage}
               page={page}
+              rowsPerPage={rowsPerPage}
               SelectProps={{
                 inputProps: { 'aria-label': 'rows per page' },
                 native: true
